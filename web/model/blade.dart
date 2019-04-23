@@ -33,9 +33,9 @@ class Blade {
    * The next update will shift the center position of
    * the circle according to this ([dx], [dy] vector).
    */
-  void move(double directionx, double directiony){
-    this.direction_x = directionx;
-    this.direction_y = directiony;
+  void move(double dx, double dy){
+    this.direction_x = dx;
+    this.direction_y = dy;
   }
   /**
    * Sets the absolute position of the center of the
