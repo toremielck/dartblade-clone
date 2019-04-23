@@ -10,7 +10,7 @@ html, body {
     font-size: 16px;
 }
 
-#output {
+#startmenu {
 
   text-align: center;
     border: 3px solid darkgray;
@@ -45,7 +45,7 @@ html, body {
     border: 1px solid black;
 
 }
-#noSmartphone {
+#qr {
     position: relative;
     z-index: 100;
     width: 220px;
