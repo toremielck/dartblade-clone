@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'dart:math';
 
-import '../model/blade.dart';
+import '../model/Blade.dart';
 
 class View{
 

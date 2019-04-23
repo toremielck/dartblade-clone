@@ -3,7 +3,7 @@ import 'dart:math';
 import 'dart:async';
 
 import 'view/view.dart';
-import 'model/blade.dart';
+import 'model/Blade.dart';
 void main() {
 
   var startButton = document.querySelector("#start");
