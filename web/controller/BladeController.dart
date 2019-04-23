@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:html';
+import 'dart:math';
+
 class BladeController {
 
-  int timer;
+  // var timer = new Timer.periodic();
 
   void gameOver() {
 
