@@ -6,6 +6,7 @@ import '../model/blade.dart';
 class View{
 
   var blade = querySelector("#blade");
+  var startButton = querySelector("#start");
 
   // ViewPort
   int get width => window.innerWidth;

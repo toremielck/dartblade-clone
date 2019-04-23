@@ -14,9 +14,9 @@ void main() {
   final view = new View();
   var mobile = false;
 
-  Blade player = new Blade(view.center_x, view.center_y, view.size / 4, view);
+  Blade player = new Blade(view.center_x, view.center_y, view.size / 8, view);
+  print(player.width);
   view.update(player);
-
 
   window.onDeviceOrientation.listen((ev) {
     if(ev.alpha == null && ev.beta == null && ev.gamma == null){
@@ -32,10 +32,10 @@ void main() {
   });
 
   startButton.onClick.listen((e){
-
+    player.position(view.center_x, view.center_y);
     output.style.display = 'none';
     game.style.display = 'block';
-    player.position(view.center_x, view.center_y);
+
 
     new Timer.periodic(new Duration(milliseconds: 30), (update) {
 
