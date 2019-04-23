@@ -7,6 +7,7 @@ class View{
 
   var blade = querySelector("#blade");
   var startButton = querySelector("#start");
+  // TODO var levelCode =
 
   // ViewPort
   int get width => window.innerWidth;
@@ -26,5 +27,25 @@ class View{
     this.blade.style.width = "${player.width}px";
     this.blade.style.height = "${player.width}px";
     this.blade.style.borderRadius=round;
+  }
+
+  void generateField() {
+
+  }
+
+  void showSpin() {
+
+  }
+
+  void showTime() {
+
+  }
+
+  void warnLowSpin() {
+
+  }
+
+  void gameOverScreen() {
+
   }
 }

@@ -2,7 +2,20 @@ import 'Blade.dart';
 
 class EnemyBlade extends Blade {
 
-  EnemyBlade(){
+  int type;
+
+  EnemyBlade(this.type){
   }
 
+  void followPlayerBlade() {
+
+  }
+
+  void randomMovement() {
+
+  }
+
+  void huntPlayerBlade() {
+
+  }
 }
