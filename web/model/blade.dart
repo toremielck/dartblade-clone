@@ -1,4 +1,4 @@
-import 'view/view.dart';
+import '../view/view.dart';
 
 class Blade {
   double positionx;
@@ -51,10 +51,10 @@ class Blade {
     this.positionx += this.directionx;
     this.positiony += this.directiony;
 
-    if (this.top < 0) this.y = this.radius;
-    if (this.bottom > this.view.height - 1) this.y = this.view.height - 1 - this.radius;
+    if (this.top < 0) this.positiony = this.radius;
+    if (this.bottom > this.view.height - 1) this.positiony = this.view.height - 1 - this.radius;
 
-    if (this.left < 0) this.x = this.radius;
-    if (this.right > this.view.width - 1) this.x = this.view.width - 1 - this.radius;
+    if (this.left < 0) this.positionx = this.radius;
+    if (this.right > this.view.width - 1) this.positionx = this.view.width - 1 - this.radius;
   }
 }
