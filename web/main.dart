@@ -17,7 +17,6 @@ void main() {
   var mobile = false;
 
   Blade player = new Blade(view.center_x, view.center_y, view.size / 16, view);
-  print(player.width);
 
 
   window.onDeviceOrientation.listen((ev) {
@@ -41,33 +40,39 @@ void main() {
     }
   });
 
+  // Methode für Spin -> bisher nur wie bekomm ich einen Wert und zeige ihn an, starte danach das spiel ... muss noch alles bisschen aufgeteilt werden
+
   void initialiseSpin(){
-    initSpin.style.display = 'block';
     int count = 0;
+    initSpin.style.display = 'block';
+
     spin = Timer.periodic(new Duration(milliseconds: 500), (_) {
       if(count >= 10) count=0;
       count++;
       initSpin.text = "Spin: ${count}";
-      print(count);
     });
-
-    querySelector('body').onClick.listen((ev){
+    initSpin.onClick.listen((ev){
       spin.cancel();
       initSpin.text = "Congrats, your spin is ${count}";
+      new Timer.periodic(new Duration(milliseconds: 30), (update) {
+
+        view.update(player);
+
+
+      });
     });
+
   }
 
   startButton.onClick.listen((e){
     output.style.display = 'none';
     game.style.display = 'block';
     initialiseSpin();
+
+
+
     player.position(view.center_x, view.center_y);
-    new Timer.periodic(new Duration(milliseconds: 30), (update) {
 
-      view.update(player);
-
-
-    });
 
 
 
