@@ -7,16 +7,19 @@ import 'model/Blade.dart';
 void main() {
 
   var startButton = document.querySelector("#start");
+  final entersecretButton = querySelector("#entersecret");
+  final initSpin = querySelector("#initSpin");
   var game = document.querySelector("#game");
   final qr = querySelector("#qr");
   var output = document.querySelector("#startmenu");
+  Timer spin;
 
   final view = new View();
   var mobile = false;
 
   Blade player = new Blade(view.center_x, view.center_y, view.size / 16, view);
   print(player.width);
-  view.update(player);
+
 
   window.onDeviceOrientation.listen((ev) {
 
@@ -40,10 +43,20 @@ void main() {
   });
 
   startButton.onClick.listen((e){
-    player.position(view.center_x, view.center_y);
+    initSpin.style.display = 'block';
+    int count = 0;
+    new Timer.periodic(new Duration(milliseconds: 500), (_) {
+      if(count >= 10) count=0;
+      count++;
+      initSpin.text = "Spin: ${count}";
+    });
+    querySelector('body').onClick.listen((ev){
+
+    });
+
     output.style.display = 'none';
     game.style.display = 'block';
-
+    player.position(view.center_x, view.center_y);
     new Timer.periodic(new Duration(milliseconds: 30), (update) {
 
       view.update(player);
