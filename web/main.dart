@@ -13,7 +13,6 @@ void main() {
   final qr = querySelector("#qr");
   var output = document.querySelector("#startmenu");
   Timer spin;
-
   final view = new View();
   var mobile = false;
 
@@ -42,20 +41,26 @@ void main() {
     }
   });
 
-  startButton.onClick.listen((e){
+  void initialiseSpin(){
     initSpin.style.display = 'block';
     int count = 0;
-    new Timer.periodic(new Duration(milliseconds: 500), (_) {
+    spin = Timer.periodic(new Duration(milliseconds: 500), (_) {
       if(count >= 10) count=0;
       count++;
       initSpin.text = "Spin: ${count}";
+      print(count);
     });
+
     querySelector('body').onClick.listen((ev){
-
+      spin.cancel();
+      initSpin.text = "Congrats, your spin is ${count}";
     });
+  }
 
+  startButton.onClick.listen((e){
     output.style.display = 'none';
     game.style.display = 'block';
+    initialiseSpin();
     player.position(view.center_x, view.center_y);
     new Timer.periodic(new Duration(milliseconds: 30), (update) {
 

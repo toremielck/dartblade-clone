@@ -42,7 +42,7 @@ html, body {
     border-radius: 5px;
 }
 
-#spin {
+#initSpin {
     position: relative;
     z-index: 100;
     width: 220px;
