@@ -7,7 +7,6 @@ class View{
 
   var blade = querySelector("#blade");
   var startButton = querySelector("#start");
-  // TODO var levelCode =
 
   // ViewPort
   int get width => window.innerWidth;
