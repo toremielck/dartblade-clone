@@ -7,6 +7,11 @@ class View{
 
   var blade = querySelector("#blade");
   var startButton = querySelector("#start");
+  final enterSecretButton = querySelector("#entersecret");
+  final initSpin = querySelector("#initSpin");
+  var game = document.querySelector("#game");
+  final qr = querySelector("#qr");
+  var output = document.querySelector("#startmenu");
 
   // ViewPort
   int get width => window.innerWidth;
