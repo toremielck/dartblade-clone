@@ -6,6 +6,12 @@ import 'view/view.dart';
 import 'model/Blade.dart';
 
 void main() {
+  var startButton = document.querySelector("#start");
+  final entersecretButton = querySelector("#entersecret");
+  final initSpin = querySelector("#initSpin");
+  var game = document.querySelector("#game");
+  final qr = querySelector("#qr");
+  var output = document.querySelector("#startmenu");
   Timer spin;
   final view = new View();
   var mobile = false;
