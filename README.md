@@ -12,6 +12,6 @@ Von Level zu Level erhöht sich der Schwierigkeitsgrad. Das Zeigt sich durch fol
 Das Level besteht aus einem n x m Feld, welches hardcodiert in einer JSON-Datei geschrieben wird. Diese JSON-Dateien werden im Spielverlauf vom Sever nachgeladen.
 Das Spiel ist für ein Smartphone konzipiert und die Hauptsteuerung des Kreisel erfolgt durch den Gyroskopsensor.
 
-~~![Link zum Spiel](qr.png)~~
+~~![Link zum Spiel](qr_dartblade.png)~~
 
 Link zum Spiel: https://webtech.mylab.th-luebeck.de/ss2019/team-5e
