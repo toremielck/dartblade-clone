@@ -5,6 +5,14 @@ import '../model/Blade.dart';
 
 class View{
 
+  final blade = document.querySelector("#blade");
+  final startButton = document.querySelector("#start");
+  final enterSecretButton = document.querySelector("#entersecret");
+  final initSpin = document.querySelector("#initSpin");
+  final game = document.querySelector("#game");
+  final qr = document.querySelector("#qr");
+  final output = document.querySelector("#startmenu");
+
   // ViewPort
   int get width => window.innerWidth;
   int get height => window.innerHeight;
