@@ -36,7 +36,7 @@ class DartbladeGameController{
         //final dx = min(20, max(-20, ev.gamma));
 
         //landscape dx ist ok, aber dy bekomm ich nicht korrekt hin ?
-        final dy = max(-80, min(-20, ev.gamma)) -50;
+        final dy = max(-80, min(-20, ev.gamma)) +50;
         final dx = min(20, max(-20,ev.beta));
         print(ev.alpha);
         _player.move(dx, dy);
