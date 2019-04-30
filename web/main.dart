@@ -15,6 +15,7 @@ void main() {
   Timer spin;
   final view = new View();
   var mobile = false;
+  // change
 
   Blade player = new Blade(view.center_x, view.center_y, view.size / 16, view);
 
