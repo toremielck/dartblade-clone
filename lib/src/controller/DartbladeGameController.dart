@@ -36,7 +36,7 @@ class DartbladeGameController{
         //final dx = min(20, max(-20, ev.gamma));
 
         //landscape dx ist ok, aber dy bekomm ich nicht korrekt hin ?
-        final dy = min(20, max(-20,ev.gamma));
+        final dy = min(-20, max(20,ev.gamma));
         final dx = min(20, max(-20,ev.beta));
 
         //DEBUG-Funktion für die Gyro-Werte
