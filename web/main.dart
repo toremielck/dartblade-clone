@@ -6,12 +6,14 @@ import 'view/view.dart';
 import 'model/Blade.dart';
 
 void main() {
-  var startButton = document.querySelector("#start");
-  final entersecretButton = querySelector("#entersecret");
-  final initSpin = querySelector("#initSpin");
-  var game = document.querySelector("#game");
-  final qr = querySelector("#qr");
-  var output = document.querySelector("#startmenu");
+  final blade = document.querySelector("#blade");
+  final startButton = document.querySelector("#start");
+  final enterSecretButton = document.querySelector("#entersecret");
+  final initSpin = document.querySelector("#initSpin");
+  final game = document.querySelector("#game");
+  final qr = document.querySelector("#qr");
+  final output = document.querySelector("#startmenu");
+
   Timer spin;
   final view = new View();
   var mobile = false;
@@ -22,11 +24,11 @@ void main() {
   window.onDeviceOrientation.listen((ev) {
     // No device orientation
     if (ev.alpha == null && ev.beta == null && ev.gamma == null) {
-      qr.style.display = 'block'; // Show QR code
+      view.qr.style.display = 'block'; // Show QR code
     }
     // Device orientation available
     else {
-      qr.style.display = 'none'; // Hide QR code
+      view.qr.style.display = 'none'; // Hide QR code
       mobile = true;
       // Determine ball movement from orientation event
       //
@@ -43,29 +45,29 @@ void main() {
     }
   });
 
-  // Methode für Spin -> bisher nur wie bekomm ich einen Wert und zeige ihn an, starte danach das spiel ... muss noch alles bisschen aufgeteilt werden
+  // Methode für Spin -> bisher nur wie bekomm ich eineng Wert und zeige ihn an, starte danach das spiel ... muss noch alles bisschen aufgeteilt werden
 
   void initialiseSpin() {
     int count = 0;
-    initSpin.style.display = 'block';
+    view.initSpin.style.display = 'block';
 
     spin = Timer.periodic(new Duration(milliseconds: 500), (_) {
       if (count >= 10) count = 0;
       count++;
-      initSpin.text = "Spin: ${count}";
+      view.initSpin.text = "Spin: ${count}";
     });
-    initSpin.onClick.listen((ev) {
+    view.initSpin.onClick.listen((ev) {
       spin.cancel();
-      initSpin.text = "Congrats, your spin is ${count}";
+      view.initSpin.text = "Congrats, your spin is ${count}";
       new Timer.periodic(new Duration(milliseconds: 30), (update) {
         view.update(player);
       });
     });
   }
 
-  startButton.onClick.listen((e) {
-    output.style.display = 'none';
-    game.style.display = 'block';
+  view.startButton.onClick.listen((e) {
+    view.output.style.display = 'none';
+    view.game.style.display = 'block';
     initialiseSpin();
 
     player.position(view.center_x, view.center_y);
