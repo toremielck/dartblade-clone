@@ -9,8 +9,9 @@ class DartbladeGameController{
   var mobile = false;
 
 
-  /*Constructor for the DartbladeGameController object
-  It creates a new view from DartBladeGameView and initilizes the model with the reference _player
+  /**
+   * Constructor for the DartbladeGameController object
+   * It creates a new view from DartBladeGameView and initilizes the model with the reference _player
    */
   DartbladeGameController(){
     _view = new DartbladeGameView();
@@ -45,7 +46,7 @@ class DartbladeGameController{
   clickOnStart();
 
   }
-  /*
+  /**
   Starts the game by hiding the menu and starting the initilizeSpin() method.
   Then the postion of the _player object is set to the center of the viewport.
    */
