@@ -35,7 +35,7 @@ class Blade {
    */
   void move(double dx, double dy) {
     this.direction_x = dx;
-    this.direction_y = dy;
+    this.direction_y = -dy;
   }
 
   /**
