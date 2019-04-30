@@ -5,13 +5,13 @@ import '../model/Blade.dart';
 
 class View{
 
-  var blade = querySelector("#blade");
-  var startButton = querySelector("#start");
-  final enterSecretButton = querySelector("#entersecret");
-  final initSpin = querySelector("#initSpin");
-  var game = document.querySelector("#game");
-  final qr = querySelector("#qr");
-  var output = document.querySelector("#startmenu");
+  final blade = document.querySelector("#blade");
+  final startButton = document.querySelector("#start");
+  final enterSecretButton = document.querySelector("#entersecret");
+  final initSpin = document.querySelector("#initSpin");
+  final game = document.querySelector("#game");
+  final qr = document.querySelector("#qr");
+  final output = document.querySelector("#startmenu");
 
   // ViewPort
   int get width => window.innerWidth;
