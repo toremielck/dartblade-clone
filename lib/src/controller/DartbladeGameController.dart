@@ -33,10 +33,10 @@ class DartbladeGameController{
         // beta: 30° no move, 10° full up, 50° full down
         // gamma: 0° no move, -20° full left, 20° full right
         // final dy = min(50, max(10, ev.beta)) - 30;
-        // final dx = min(20, max(-20, ev.gamma));
+        //final dx = min(20, max(-20, ev.gamma));
 
         //landscape dx ist ok, aber dy bekomm ich nicht korrekt hin ?
-        final dy = min(20, max(-20,ev.gamma));
+        final dy = max(-40, min(-20, ev.gamma)) +50;
         final dx = min(20, max(-20,ev.beta));
         print(ev.alpha);
         _player.move(dx, dy);
