@@ -45,8 +45,10 @@ class DartbladeGameController{
               " <br>beta: " + ev.beta.toInt().toString() +
               " <br>gamma: " + ev.gamma.toInt().toString() +
               " <br> dx: " + dx.toInt().toString() +
-              " dy: " + dy.toInt().toString();
+              " <br> dy: " + dy.toInt().toString();
         }
+
+        debugGyroValues();
 
         _player.move(dx, dy);
       }
