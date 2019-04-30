@@ -40,7 +40,7 @@ class DartbladeGameController{
         final dx = min(20, max(-20,ev.beta));
 
         //DEBUG-Funktion für die Gyro-Werte
-        _view.game.innerHtml = "alpha: " + ev.alpha.toInt().toString() + " <br>beta: " + ev.beta.toInt().toString() + " <br>gamma: " + ev.gamma.toString();
+        _view.game.innerHtml = "alpha: " + ev.alpha.toInt().toString() + " <br>beta: " + ev.beta.toInt().toString() + " <br>gamma: " + ev.gamma.toInt().toString();
 
         _player.move(dx, dy);
       }
