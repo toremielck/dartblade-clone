@@ -48,6 +48,8 @@ class DartbladeGameController{
               " dy: " + dy.toInt().toString();
         }
 
+        debugGyroValues();
+
         _player.move(dx, dy);
       }
     });
