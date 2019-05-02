@@ -55,22 +55,12 @@ class Blade {
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;
 
-    /* if (this.top < 0) this.position_y = this.radius;
+    if (this.top < 0) this.position_y = this.radius;
     if (this.bottom > this.view.height - 1)
       this.position_y = this.view.height - 1 - this.radius;
 
     if (this.left < 0) this.position_x = this.radius;
     if (this.right > this.view.width - 1)
       this.position_x = this.view.width - 1 - this.radius;
-  */
-  
-  if (this.top < 0) this.position_y = this.radius;
-    if (this.bottom > this.view.bladeMovingAreaHeight - 1)
-      this.position_y = this.view.bladeMovingAreaHeight - 1 - this.radius;
-
-    if (this.left < 0) this.position_x = this.radius;
-    if (this.right > this.view.bladeMovingAreaWidth - 1)
-      this.position_x = this.view.bladeMovingAreaWidth - 1 - this.radius;
-
   }
 }
