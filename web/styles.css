@@ -77,7 +77,7 @@ html, body {
     text-align: center;
 }
 
-#bladeMoveArea {
+#bladeMovingArea {
     width: 20%;
     height: 30%;
     border: 3px red solid;
