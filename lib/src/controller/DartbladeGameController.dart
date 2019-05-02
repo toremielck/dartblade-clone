@@ -17,7 +17,7 @@ class DartbladeGameController{
     _view = new DartbladeGameView();
     print(window.innerWidth); //debugg
     print(_view.width);
-    _player = new Blade(_view.center_x, _view.center_y, _view.size / 16, _view);
+    _player = new Blade(_view.bladeMovingAreaCenter_x, _view.bladeMovingAreaCenter_y, _view.size / 16, _view);
 
     window.onDeviceOrientation.listen((ev) {
       // No device orientation

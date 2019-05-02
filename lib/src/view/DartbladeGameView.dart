@@ -19,6 +19,8 @@ class DartbladeGameView{
 
   double get center_x => this.width / 2;
   double get center_y => this.height / 2;
+  double get bladeMovingAreaCenter_x => bladeMovingAreaWidth / 2;
+  double get bladeMovingAreaCenter_y => bladeMovingAreaHeight / 2;
 
   void update (Blade player){
     player.update();
