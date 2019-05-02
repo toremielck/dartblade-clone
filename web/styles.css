@@ -64,7 +64,6 @@ html, body {
     height: 100%;
     background: lightblue;
     border: 1px solid black;
-    background-image: url(background.bmp);
 }
 #qr {
     position: relative;
@@ -75,11 +74,4 @@ html, body {
     border-radius: 10pt;
     background-color: white;
     text-align: center;
-}
-
-#bladeMovingArea {
-    width: 20%;
-    height: 30%;
-    border: 3px red solid;
-    margin: auto;
 }
