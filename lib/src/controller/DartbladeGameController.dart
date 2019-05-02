@@ -17,6 +17,7 @@ class DartbladeGameController{
     _view = new DartbladeGameView();
     print(window.innerWidth); //debugg
     print(_view.width);
+    // Der Kresiel/Blade wird jetzt in der Mitte des bladeMovingArea Objektes gespawnt
     _player = new Blade(_view.bladeMovingAreaCenter_x, _view.bladeMovingAreaCenter_y, _view.size / 16, _view);
 
     window.onDeviceOrientation.listen((ev) {
