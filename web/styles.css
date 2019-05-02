@@ -76,3 +76,8 @@ html, body {
     background-color: white;
     text-align: center;
 }
+
+#bladeMoveArea {
+    position: flex;
+    justify-content: center;
+}

@@ -6,6 +6,7 @@ class DartbladeGameView{
   final enterSecretButton = document.querySelector("#entersecret");
   final initSpin = document.querySelector("#initSpin");
   final game = document.querySelector("#game");
+  final bladeMovingArea = document.querySelector("#bladeMovingArea");
   final qr = document.querySelector("#qr");
   final output = document.querySelector("#startmenu");
 
