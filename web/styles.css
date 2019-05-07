@@ -60,6 +60,25 @@ html, body {
     z-index: 80;
 }
 
+#movingArea {
+    width: 400px;
+    height: 220px;
+    background: rgb(153, 24, 27, 0.5);
+    border: 3px solid rgb(153, 24, 27);
+    position: fixed;
+    /*it can be fixed too*/
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    display: none;
+}
+
 #game {
     display: none;
     width: 80%;

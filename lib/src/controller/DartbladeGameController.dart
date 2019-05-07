@@ -68,7 +68,7 @@ class DartbladeGameController{
       initialiseSpin();
 
       _player.position(_view.center_x, _view.center_y);
-      
+      _view.movingArea.style.display = 'block';
     });
   }
 
