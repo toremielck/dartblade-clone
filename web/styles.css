@@ -1,50 +1,50 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
-
 html, body {
-     width: 100%;
-     height: 100%;
-     margin: 0px;
-     padding: 0px;
-     font-family: 'Press Start 2P', sans-serif;
-     background: white;
-     font-size: 16px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Press Start 2P', sans-serif;
+    background: white;
+    font-size: 16px;
+    background-image: url("background.jpg");
 }
 
 #startmenu {
     text-align: center;
     border: 3px solid darkgray;
+    margin: auto;
+    /* width: 60%;
+    height: 60%;*/
+    width: 500px;
+    height: 220px;
+    position: relative;
+    top: 20%;
+    background: rgba(255, 250, 250, 0.2);
 }
-
 
 #gametitle {
     color: gray;
 }
 
-#start {
+.menupoints {
     padding: 5px 20px 5px 20px;
-    margin: 5px 20px 5px 20px;
-    font-style: normal;
+    margin: auto;
+    margin-bottom: 5px;
     display: block;
     text-decoration: none;
     color: grey;
     background: lightgray;
     border-radius: 5px;
-}
-
-#entersecret {
-    padding: 5px 20px 5px 20px;
-    margin: 5px 20px 5px 20px;
-    font-style: normal;
-    display: block;
-    text-decoration: none;
-    color: grey;
-    background: lightgray;
-    border-radius: 5px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 110%;
+    width: 250px;
 }
 
 #initSpin {
     position: relative;
     z-index: 100;
+    top: 20%;
     width: 220px;
     margin: auto;
     padding: 20pt;
@@ -56,22 +56,29 @@ html, body {
 
 #blade {
     position: fixed;
-    background-color: lightgreen;
+    background-color: DodgerBlue;
+    z-index: 80;
 }
-#game{
+
+#game {
     display: none;
-    width: 100%;
-    height: 100%;
-    background: lightblue;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    background: rgba(168, 160, 160, 0.5);
     border: 1px solid black;
 }
+
 #qr {
     position: relative;
     z-index: 100;
-    width: 220px;
+    top: 10px;
+    width: 300px;
     margin: auto;
-    padding: 20pt;
-    border-radius: 10pt;
-    background-color: white;
+    padding: 10pt;
+    background-color: rgb(153, 24, 27, 0.5);
+    text-align: center;
+    color: white;
+    font-size: 70%;
     text-align: center;
 }

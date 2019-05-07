@@ -9,6 +9,7 @@ class DartbladeGameView{
   final qr = document.querySelector("#qr");
   final output = document.querySelector("#startmenu");
 
+
   // ViewPort
   int get width => window.innerWidth;
   int get height => window.innerHeight;
