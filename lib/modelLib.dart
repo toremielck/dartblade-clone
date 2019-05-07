@@ -9,5 +9,8 @@ import 'dart:convert';
 import 'package:dartblade/controllerLib.dart';
 import 'package:dartblade/viewLib.dart';
 
+part 'src/model/DartBladeGameModel.dart';
 part 'src/model/Blade.dart';
 part 'src/model/LoadingLevel.dart';
+part 'src/model/Entity.dart';
+part 'src/model/SpecialField.dart';

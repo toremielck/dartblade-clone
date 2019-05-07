@@ -1,7 +1,7 @@
 part of modelLib;
 
 
-class Blade {
+class Blade extends Entity {
   double position_x;
   double position_y;
   double direction_x = 0.0;
@@ -13,7 +13,8 @@ class Blade {
 
   DartbladeGameView view;
 
-  Blade(this.position_x, this.position_y, this.radius, this.view) {
+  Blade(double x, double y, bool collision,  this.radius, this.view)
+      : super(x, y, collision) {
   }
 
   int get top => (this.position_y - this.radius).floor();
