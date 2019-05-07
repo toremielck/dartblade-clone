@@ -8,6 +8,7 @@ class DartbladeGameView{
   final game = document.querySelector("#game");
   final qr = document.querySelector("#qr");
   final output = document.querySelector("#startmenu");
+  final movingArea= document.querySelector("#movingArea");
 
   // ViewPort
   int get width => window.innerWidth;
