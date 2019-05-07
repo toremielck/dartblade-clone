@@ -88,6 +88,9 @@ class DartbladeGameController{
       new Timer.periodic(new Duration(milliseconds: 30), (update) {
         _view.update(_player);
       });
+      new Timer.periodic(new Duration(milliseconds: 2000), (update) {
+        _view.initSpin.style.display = 'none';
+      });
     });
   }
 
