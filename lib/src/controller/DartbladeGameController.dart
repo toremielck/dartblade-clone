@@ -15,8 +15,6 @@ class DartbladeGameController{
    */
   DartbladeGameController(){
     _view = new DartbladeGameView();
-    print(window.innerWidth); //debugg
-    print(_view.width);
     _player = new Blade(_view.center_x, _view.center_y, true ,  _view.size / 16, _view);
 
     window.onDeviceOrientation.listen((ev) {
@@ -40,7 +38,7 @@ class DartbladeGameController{
         final dy = min(-20, max(-80, ev.gamma)) +50;
 
         //DEBUG-Funktion für die Gyro-Werte
-        void debugGyroValues() {
+   /*     void debugGyroValues() {
           _view.game.innerHtml = "alpha: " + ev.alpha.toInt().toString() +
               " <br>beta: " + ev.beta.toInt().toString() +
               " <br>gamma: " + ev.gamma.toInt().toString() +
@@ -49,8 +47,9 @@ class DartbladeGameController{
         }
 
         debugGyroValues();
-
+*/
         _player.move(dx, dy);
+
       }
     });
 
@@ -87,6 +86,7 @@ class DartbladeGameController{
       _view.initSpin.text = "Congrats, your spin is ${count}";
       new Timer.periodic(new Duration(milliseconds: 30), (update) {
         _view.update(_player);
+        _view.shiftLevel(_player.position_x, _player.position_y);
       });
       new Timer.periodic(new Duration(milliseconds: 2000), (update) {
         _view.initSpin.style.display = 'none';

@@ -56,15 +56,15 @@ html, body {
 
 #blade {
     position: fixed;
-    background-color: DodgerBlue;
+    background-color: lightgreen;
     z-index: 80;
 }
 
 #movingArea {
     width: 400px;
     height: 220px;
-    background: rgb(153, 24, 27, 0.5);
-    border: 3px solid rgb(153, 24, 27);
+    background: rgba()(153, 24, 27, 0.5);
+    border: 3px solid rgba(153, 24, 27);
     position: fixed;
     /*it can be fixed too*/
     left: 0;
@@ -81,11 +81,27 @@ html, body {
 
 #game {
     display: none;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     margin: auto;
-    background: rgba(168, 160, 160, 0.5);
+    background: rgba(168, 160, 160, 0.2);
     border: 1px solid black;
+}
+
+
+td {
+    width: 50px;
+    height: 50px;
+    background: dodgerblue;
+}
+
+td:hover {
+    background: darkkhaki;
+}
+
+#level {
+    display: block;
+    margin: auto;
 }
 
 #qr {
