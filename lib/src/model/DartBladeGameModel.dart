@@ -6,5 +6,9 @@ class DartBladeGameModel{
   bool _levelLost;
   int _currentLevel;
 
+  Blade _player;
+
+  Level _level;
+
 
 }

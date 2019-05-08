@@ -14,3 +14,4 @@ part 'src/model/Blade.dart';
 part 'src/model/LoadingLevel.dart';
 part 'src/model/Entity.dart';
 part 'src/model/SpecialField.dart';
+part 'src/model/Level.dart';
