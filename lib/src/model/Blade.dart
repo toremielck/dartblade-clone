@@ -35,7 +35,7 @@ class Blade extends Entity {
    * the circle according to this ([dx], [dy] vector).
    */
   void move(double dx, double dy) {
-    view.shiftLevel(dx, dy);
+  //  view.shiftLevel(dx, dy);
     this.direction_x = dx;
     this.direction_y = -dy;
   }
@@ -72,13 +72,13 @@ class Blade extends Entity {
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;
 
-    if (this.top < 0) this.position_y = this.radius;
-    if (this.bottom > this.view.height - 1)
-      this.position_y = this.view.height - 1 - this.radius;
+    if (this.top < 50) this.position_y = this.radius +50;
+    if (this.bottom > this.view.height - 50 - 1)
+      this.position_y = this.view.height - 1 - this.radius -50;
 
-    if (this.left < 0) this.position_x = this.radius;
-    if (this.right > this.view.width - 1)
-      this.position_x = this.view.width - 1 - this.radius;
+    if (this.left < 150) this.position_x = this.radius +150;
+    if (this.right > this.view.width-150 - 1)
+      this.position_x = this.view.width - 1 - this.radius -150;
   }
 
 }
