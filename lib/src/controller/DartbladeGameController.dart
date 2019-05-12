@@ -6,9 +6,6 @@ class DartbladeGameController{
   DartbladeGameView _view;
 
   Timer spin;
-  var mobile = false;
-
-
   /**
    * Constructor for the DartbladeGameController object
    * It creates a new view from DartBladeGameView and initilizes the model with the reference _player
@@ -25,31 +22,34 @@ class DartbladeGameController{
       // Device orientation available
       else {
         _view.qr.style.display = 'none'; // Hide QR code
-        mobile = true;
-        // Determine ball movement from orientation event
-        //
-        // beta: 30° no move, 10° full up, 50° full down
-        // gamma: 0° no move, -20° full left, 20° full right
-        // final dy = min(50, max(10, ev.beta)) - 30;
-        //final dx = min(20, max(-20, ev.gamma));
+        if (_view.getLandscapeMode(_view.width, _view.height) == false) {
+          _view.changeView.style.display = 'block';
+        } else {
+          _view.changeView.style.display = 'none';
 
-        //zu beachten : dy wird in der Klasse Blade in der Funktion umgekehrt !!
-        final dx = min(20, max(-20,ev.beta));
-        final dy = min(-20, max(-80, ev.gamma)) +50;
+          // Determine ball movement from orientation event
+          //
+          // beta: 30° no move, 10° full up, 50° full down
+          // gamma: 0° no move, -20° full left, 20° full right
+          // final dy = min(50, max(10, ev.beta)) - 30;
+          //final dx = min(20, max(-20, ev.gamma));
 
-        //DEBUG-Funktion für die Gyro-Werte
-   /*     void debugGyroValues() {
+          //zu beachten : dy wird in der Klasse Blade in der Funktion umgekehrt !!
+          final dx = min(20, max(-20, ev.beta));
+          final dy = min(-20, max(-80, ev.gamma)) + 50;
+
+          //DEBUG-Funktion für die Gyro-Werte
+          /*     void debugGyroValues() {
           _view.game.innerHtml = "alpha: " + ev.alpha.toInt().toString() +
               " <br>beta: " + ev.beta.toInt().toString() +
               " <br>gamma: " + ev.gamma.toInt().toString() +
               " <br> dx: " + dx.toInt().toString() +
               " <br> dy: " + dy.toInt().toString();
         }
-
         debugGyroValues();
 */
-        _player.move(dx, dy);
-
+          _player.move(dx, dy);
+        }
       }
     });
 

@@ -8,6 +8,7 @@ class DartbladeGameView{
   final game = document.querySelector("#game");
   final level = document.querySelector("#level");
   final qr = document.querySelector("#qr");
+  final changeView = document.querySelector("#changeView");
   final output = document.querySelector("#startmenu");
   final movingArea= document.querySelector("#movingArea");
 
@@ -46,6 +47,10 @@ class DartbladeGameView{
   void shiftLevel(dx, dy) {
     this.level.style.marginTop = '${dy}px';
     this.level.style.marginLeft = '${dx}px';
+  }
+
+  bool getLandscapeMode(int w, int h){
+    return (w > h) ? true: false;
   }
 
 }

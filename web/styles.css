@@ -63,7 +63,7 @@ html, body {
 #movingArea {
     width: 400px;
     height: 220px;
-    background: rgba()(153, 24, 27, 0.5);
+    background: rgba(153, 24, 27, 0.5);
     border: 3px solid rgba(153, 24, 27);
     position: fixed;
     /*it can be fixed too*/
@@ -103,7 +103,19 @@ td:hover {
     display: block;
     margin: auto;
 }
-
+#changeView {
+    position: relative;
+    z-index: 100;
+    top: 10px;
+    width: 300px;
+    margin: auto;
+    padding: 10pt;
+    background-color: rgba(153, 24, 27, 0.5);
+    text-align: center;
+    color: white;
+    font-size: 70%;
+    text-align: center;
+}
 #qr {
     position: relative;
     z-index: 100;
@@ -111,7 +123,7 @@ td:hover {
     width: 300px;
     margin: auto;
     padding: 10pt;
-    background-color: rgb(153, 24, 27, 0.5);
+    background-color: rgba(153, 24, 27, 0.5);
     text-align: center;
     color: white;
     font-size: 70%;
