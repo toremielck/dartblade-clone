@@ -10,7 +10,9 @@ class DartbladeGameView{
   final qr = document.querySelector("#qr");
   final changeView = document.querySelector("#changeView");
   final output = document.querySelector("#startmenu");
-  final movingArea= document.querySelector("#movingArea");
+  final movingArea = document.querySelector("#movingArea");
+  final debugOutput = document.querySelector("#debugOutput");
+
 
   // ViewPort
   int get width => window.innerWidth;
@@ -44,13 +46,58 @@ class DartbladeGameView{
     this.blade.style.borderRadius = round;
   }
 
+  /*
   void shiftLevel(dx, dy) {
     this.level.style.marginTop = '${dy}px';
     this.level.style.marginLeft = '${dx}px';
   }
+  */
 
   bool getLandscapeMode(int w, int h){
     return (w > h) ? true: false;
+  }
+
+  int count = 0;
+
+  void shiftLevel(String direction) {
+    switch (direction) {
+      case 'up':
+        count += 10;
+        level.style.setProperty("margin-top", "${count}px");
+        debugOutput.text =
+        "shifting level ${direction} ${level.style.marginTop}";
+        break;
+
+      case 'down':
+        debugOutput.text = "shifting level ${direction}";
+        break;
+
+      case 'left':
+        debugOutput.text = "shifting level ${direction}";
+        break;
+
+      case 'right':
+        debugOutput.text = "shifting level ${direction}";
+        break;
+
+      default:
+        debugOutput.text = "no level shifting";
+        break;
+
+    /*
+    if(direction == "up") {
+      count++;
+      level.style.setProperty("margin-top", "${count}px");
+      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
+    } else if (direction == "down") {
+      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
+    } else if (direction == "left") {
+      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
+    } else if (direction == "right") {
+      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
+    }
+     */
+    }
   }
 
 }

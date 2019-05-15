@@ -86,15 +86,12 @@ class DartbladeGameController{
       _view.initSpin.text = "Congrats, your spin is ${count}";
       new Timer.periodic(new Duration(milliseconds: 30), (update) {
         _view.update(_player);
-      //  _view.shiftLevel(_player.position_x, _player.position_y);
       });
       new Timer.periodic(new Duration(milliseconds: 2000), (update) {
         _view.initSpin.style.display = 'none';
       });
     });
   }
-
-
 
 
 }

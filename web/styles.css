@@ -102,6 +102,7 @@ td:hover {
 #level {
     display: block;
     margin: auto;
+    overflow: hidden;
 }
 #changeView {
     position: relative;
@@ -128,4 +129,19 @@ td:hover {
     color: white;
     font-size: 70%;
     text-align: center;
+}
+
+#debugOutput {
+    position: absolute;
+    z-index: 100;
+    top: 10px;
+    width: 300px;
+    margin: auto;
+    padding: 10pt;
+    background-color: rgba(153, 24, 27, 1.0);
+    text-align: center;
+    color: white;
+    font-size: 70%;
+    text-align: center;
+    z-index: 1000;
 }
