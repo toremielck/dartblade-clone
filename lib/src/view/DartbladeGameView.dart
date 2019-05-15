@@ -19,17 +19,6 @@ class DartbladeGameView{
   int get height => window.innerHeight;
   int get size => min(this.width, this.height);
 
-  int get movingAreaWidth => int.parse(movingArea.style.width);
-  int get movingAreaHeight => int.parse(movingArea.style.height);
-  int get movingAreaSize => min(movingAreaWidth, movingAreaHeight);
-
-
-  double get movingAreaTop => center_y - (movingAreaHeight / 2);
-  double get movingAreaBottom => center_y + (movingAreaHeight / 2);
-  double get movingAreaLeft => center_x - (movingAreaWidth / 2);
-  double get movingAreaRight => center_x + (movingAreaWidth / 2);
-
-
   double get center_x => this.width / 2;
   double get center_y => this.height / 2;
 
@@ -46,12 +35,6 @@ class DartbladeGameView{
     this.blade.style.borderRadius = round;
   }
 
-  /*
-  void shiftLevel(dx, dy) {
-    this.level.style.marginTop = '${dy}px';
-    this.level.style.marginLeft = '${dx}px';
-  }
-  */
 
   bool getLandscapeMode(int w, int h){
     return (w > h) ? true: false;
@@ -62,41 +45,33 @@ class DartbladeGameView{
   void shiftLevel(String direction) {
     switch (direction) {
       case 'up':
-        count += 10;
+        count -= 5;
         level.style.setProperty("margin-top", "${count}px");
-        debugOutput.text =
-        "shifting level ${direction} ${level.style.marginTop}";
+        debugOutput.text = "shifting level ${direction}, margin-top: ${level.style.marginTop}";
         break;
 
       case 'down':
-        debugOutput.text = "shifting level ${direction}";
+        count += 5;
+        level.style.setProperty("margin-top", "${count}px");
+        debugOutput.text = "shifting level ${direction}, margin-top: ${level.style.marginTop}";
         break;
 
       case 'left':
-        debugOutput.text = "shifting level ${direction}";
+        count -= 5;
+        level.style.setProperty("margin-left", "${count}px");
+        debugOutput.text = "shifting level ${direction}, margin-left: ${level.style.marginLeft}";
         break;
 
       case 'right':
-        debugOutput.text = "shifting level ${direction}";
+        count += 5;
+        level.style.setProperty("margin-left", "${count}px");
+        debugOutput.text = "shifting level ${direction}, left: ${level.style.marginLeft}";
         break;
 
       default:
         debugOutput.text = "no level shifting";
         break;
 
-    /*
-    if(direction == "up") {
-      count++;
-      level.style.setProperty("margin-top", "${count}px");
-      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
-    } else if (direction == "down") {
-      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
-    } else if (direction == "left") {
-      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
-    } else if (direction == "right") {
-      debugOutput.text = "shifting level ${direction} ${level.style.marginTop}";
-    }
-     */
     }
   }
 

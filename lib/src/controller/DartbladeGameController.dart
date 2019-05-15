@@ -84,7 +84,7 @@ class DartbladeGameController{
     _view.initSpin.onClick.listen((ev) {
       spin.cancel();
       _view.initSpin.text = "Congrats, your spin is ${count}";
-      new Timer.periodic(new Duration(milliseconds: 30), (update) {
+      new Timer.periodic(new Duration(milliseconds: 50), (update) {
         _view.update(_player);
       });
       new Timer.periodic(new Duration(milliseconds: 2000), (update) {
