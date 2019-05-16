@@ -13,7 +13,7 @@ class LoadingLevel{
   static const GROUND = "#";
   static const SEPARATOR = "|";
 
-  Future<bool> getLevel(int lvln) async{
+  Future<bool> generateLevelFromJSON(int lvln) async{
     if(lvln == null){
       print("getlevle(lvln) is null");
     }
@@ -30,8 +30,6 @@ class LoadingLevel{
       _size_x = allData["size_x"];
       _size_y = allData["size_y"];
       _levelStructur = allData["levelStructur"];
-
-
 
     } catch(e){
         print("getLevel(): ${e}");
