@@ -65,7 +65,7 @@ class DartbladeGameView{
       case 'right':
         count += 5;
         level.style.setProperty("margin-left", "${count}px");
-        debugOutput.text = "shifting level ${direction}, left: ${level.style.marginLeft}";
+        debugOutput.text = "shifting level ${direction}, margin-left: ${level.style.marginLeft}";
         break;
 
       default:
