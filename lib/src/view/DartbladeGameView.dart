@@ -46,26 +46,26 @@ class DartbladeGameView{
     switch (direction) {
       case 'up':
         count -= 5;
-        level.style.setProperty("margin-top", "${count}px");
-        debugOutput.text = "shifting level ${direction}, margin-top: ${level.style.marginTop}";
+        level.style.setProperty("top", "${count}px");
+        debugOutput.text = "shifting level ${direction}";
         break;
 
       case 'down':
         count += 5;
-        level.style.setProperty("margin-top", "${count}px");
-        debugOutput.text = "shifting level ${direction}, margin-top: ${level.style.marginTop}";
+        level.style.setProperty("top", "${count}px");
+        debugOutput.text = "shifting level ${direction}";
         break;
 
       case 'left':
-        count -= 5;
-        level.style.setProperty("margin-left", "${count}px");
-        debugOutput.text = "shifting level ${direction}, margin-left: ${level.style.marginLeft}";
+        count += 5;
+        level.style.setProperty("right", "${count}px");
+        debugOutput.text = "shifting level ${direction}";
         break;
 
       case 'right':
-        count += 5;
-        level.style.setProperty("margin-left", "${count}px");
-        debugOutput.text = "shifting level ${direction}, margin-left: ${level.style.marginLeft}";
+        count -= 5;
+        level.style.setProperty("right", "${count}px");
+        debugOutput.text = "shifting level ${direction}";
         break;
 
       default:

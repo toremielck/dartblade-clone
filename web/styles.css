@@ -89,10 +89,11 @@ html, body {
 }
 
 #level {
-    position: fixed;
+    position: relative;
     display: block;
     overflow: hidden;
-    border-spacing: 0;
+    right: 0;
+    top: 0;
 }
 div.tr{
     display: table-row;
