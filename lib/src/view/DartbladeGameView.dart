@@ -4,7 +4,7 @@ class DartbladeGameView{
   final blade = document.querySelector("#blade");
   final startButton = document.querySelector("#start");
   final enterSecretButton = document.querySelector("#entersecret");
-  final initSpin = document.querySelector("#initSpin");
+  final spinDisplay = document.querySelector("#spinDisplay");
   final game = document.querySelector("#game");
   final level = document.querySelector("#level");
   final qr = document.querySelector("#qr");
@@ -14,13 +14,17 @@ class DartbladeGameView{
   final debugOutput = document.querySelector("#debugOutput");
 
 
-  // ViewPort
+  // ViewPort-Variablen
   int get width => window.innerWidth;
   int get height => window.innerHeight;
   int get size => min(this.width, this.height);
 
   double get center_x => this.width / 2;
   double get center_y => this.height / 2;
+
+  // Positions-Variablen des Levels
+  int levelPositionTop = 0;
+  int levelPositionRight = 0;
 
 
   void update (Blade player){
@@ -40,32 +44,43 @@ class DartbladeGameView{
     return (w > h) ? true: false;
   }
 
-  int count = 0;
+  void moveLevel(direction, movingFactor) {
 
-  void shiftLevel(String direction) {
     switch (direction) {
       case 'up':
-        count -= 5;
-        level.style.setProperty("top", "${count}px");
-        debugOutput.text = "shifting level ${direction}, top: ${level.style.top}";
+        levelPositionTop -= movingFactor;
+        level.style.setProperty("top", "${levelPositionTop}px");
+
+        // Debug output für die Richtung der Bewegung des Levels
+        moveLevelDebug(direction);
+
         break;
 
       case 'down':
-        count += 5;
-        level.style.setProperty("top", "${count}px");
-        debugOutput.text = "shifting level ${direction}, top: ${level.style.top}";
+        levelPositionTop += movingFactor;
+        level.style.setProperty("top", "${levelPositionTop}px");
+
+        // Debug output für die Richtung der Bewegung des Levels
+        moveLevelDebug(direction);
+
         break;
 
       case 'left':
-        count += 5;
-        level.style.setProperty("right", "${count}px");
-        debugOutput.text = "shifting level ${direction}, right: ${level.style.right}";
+        levelPositionRight -= movingFactor;
+        level.style.setProperty("right", "${levelPositionRight}px");
+
+        // Debug output für die Richtung der Bewegung des Levels
+        moveLevelDebug(direction);
+
         break;
 
       case 'right':
-        count -= 5;
-        level.style.setProperty("right", "${count}px");
-        debugOutput.text = "shifting level ${direction}, right: ${level.style.right}";
+        levelPositionRight += movingFactor;
+        level.style.setProperty("right", "${levelPositionRight}px");
+
+        // Debug output für die Richtung der Bewegung des Levels
+        moveLevelDebug(direction);
+
         break;
 
       default:
@@ -73,6 +88,17 @@ class DartbladeGameView{
         break;
 
     }
+  }
+
+  void moveLevelDebug([direction]) {
+
+    // Falls sich das Level nicht bewegt setze direction auf "none"
+    if (direction == null) direction = "none";
+
+    debugOutput.innerHtml =
+        "moving level: ${direction} <br>"
+        "Position level top: ${level.style.top} <br>"
+        "Position level right: ${level.style.right}";
   }
 
 }

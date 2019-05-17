@@ -74,22 +74,28 @@ class DartbladeGameController{
   // Methode für Spin -> bisher nur wie bekomm ich eineng Wert und zeige ihn an, starte danach das spiel ... muss noch alles bisschen aufgeteilt werden
   void initialiseSpin() {
     int count = 0;
-    _view.initSpin.style.display = 'block';
+    _view.spinDisplay.style.display = 'block';
 
-    spin = Timer.periodic(new Duration(milliseconds: 500), (_) {
+    spin = Timer.periodic(new Duration(milliseconds: 250), (_) {
       if (count >= 10) count = 0;
       count++;
-      _view.initSpin.text = "Spin: ${count}";
+      _view.spinDisplay.text = "Spin: ${count}";
     });
-    _view.initSpin.onClick.listen((ev) {
+    _view.spinDisplay.onClick.listen((ev) {
       spin.cancel();
-      _view.initSpin.text = "Congrats, your spin is ${count}";
+
+      // Spin-Anzeige am oberen rechten Rand des viewports anzeigen
+      _view.spinDisplay.style.right = "0px";
+
       new Timer.periodic(new Duration(milliseconds: 50), (update) {
         _view.update(_player);
       });
+      /*
       new Timer.periodic(new Duration(milliseconds: 2000), (update) {
         _view.initSpin.style.display = 'none';
       });
+
+       */
     });
   }
 

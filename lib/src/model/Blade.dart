@@ -68,26 +68,30 @@ class Blade extends Entity {
   */
 
   void update() {
+    
+    // Initialer Aufruf der Debug-Funktion für Position des Levels
+    view.moveLevelDebug();
+    
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;
 
-    // Stellt sicher, dass der Blade innerhalb der movingArea bleibt
-    if (this.top < 50) {
-      this.position_y = this.radius + 50;
-      view.shiftLevel("down");
+    // Stellt sicher, dass der Blade innerhalb des viewports bleibt
+    if (this.top < 1) {
+      this.position_y = this.radius + 1;
+      view.moveLevel("down", 5);
     }
-      if (this.bottom > this.view.height - 50 - 1) {
-        this.position_y = this.view.height - 1 - this.radius - 50;
-        view.shiftLevel("up");
+      if (this.bottom > this.view.height - 1) {
+        this.position_y = this.view.height - this.radius - 1;
+        view.moveLevel("up", 5);
       }
 
-      if (this.left < 150) {
-        this.position_x = this.radius + 150;
-        view.shiftLevel("right");
+      if (this.left < 1) {
+        this.position_x = this.radius + 1;
+        view.moveLevel("left", 5);
       }
-      if (this.right > this.view.width-150 - 1) {
-        this.position_x = this.view.width - 1 - this.radius - 150;
-        view.shiftLevel("left");
+      if (this.right > this.view.width - 1) {
+        this.position_x = this.view.width - this.radius - 1;
+        view.moveLevel("right", 5);
       }
 
   }
