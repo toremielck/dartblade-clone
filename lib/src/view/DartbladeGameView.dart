@@ -13,7 +13,6 @@ class DartbladeGameView{
   final movingArea = document.querySelector("#movingArea");
   final debugOutput = document.querySelector("#debugOutput");
 
-
   // ViewPort-Variablen
   int get width => window.innerWidth;
   int get height => window.innerHeight;

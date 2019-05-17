@@ -29,6 +29,10 @@ class Blade extends Entity {
 
   int get height => (2 * this.radius).floor();
 
+  double get center_x => this.width / 2;
+
+  double get center_y => this.height / 2;
+
   /**
    * Sets the moving vector [dx] and [dy] of the circle.
    * The next update will shift the center position of
