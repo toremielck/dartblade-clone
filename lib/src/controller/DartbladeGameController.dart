@@ -46,9 +46,8 @@ class DartbladeGameController{
               " <br>gamma: " + ev.gamma.toInt().toString() +
               " <br> dx: " + dx.toInt().toString() +
               " <br> dy: " + dy.toInt().toString();
-        }
-        debugGyroValues();
-        */
+          }
+          */
           _player.move(dx, dy);
         }
       }
@@ -68,7 +67,6 @@ class DartbladeGameController{
       initialiseSpin();
 
       _player.position(_view.center_x, _view.center_y);
-      _view.movingArea.style.display = 'block';
     });
   }
 

@@ -13,6 +13,8 @@ class DartbladeGameView{
   final movingArea = document.querySelector("#movingArea");
   final debugOutput = document.querySelector("#debugOutput");
 
+  final feld = document.querySelector("#wichtigesFeld");
+
   // ViewPort-Variablen
   int get width => window.innerWidth;
   int get height => window.innerHeight;
@@ -44,7 +46,6 @@ class DartbladeGameView{
   }
 
   void moveLevel(direction, movingFactor) {
-
     switch (direction) {
       case 'up':
         levelPositionTop -= movingFactor;

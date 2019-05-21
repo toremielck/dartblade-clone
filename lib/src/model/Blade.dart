@@ -29,7 +29,19 @@ class Blade extends Entity {
 
   int get height => (2 * this.radius).floor();
 
-  double get center_x => this.width / 2;
+  //Point get center => Point(this.width - (this.width / 2), this.center_y);
+
+  Point bladeCenterPoint(){
+    Point t = view.blade.documentOffset;
+    Point tmp = new Point(t.x + this.radius.floor(), t.y + this.radius.floor());
+    return tmp;
+  }
+  Point feldCenterPoint(){
+    Point t = view.feld.documentOffset;
+    Point tmp = new Point(t.x + 25, t.y + 25);
+    return tmp;
+  }
+
 
   double get center_y => this.height / 2;
 
@@ -39,6 +51,7 @@ class Blade extends Entity {
    * the circle according to this ([dx], [dy] vector).
    */
   void move(double dx, double dy) {
+
     this.direction_x = dx;
     this.direction_y = -dy;
   }
@@ -56,22 +69,17 @@ class Blade extends Entity {
    * Updates the position of the circle.
    * It is assured that the circle will remain in the viewport of the [view].
    */
-  /*
-  void update() {
-    this.position_x += this.direction_x;
-    this.position_y += this.direction_y;
-
-    if (this.top < this.view.movingAreaTop) this.position_y = this.view.movingAreaTop;
-    if (this.bottom > this.view.movingAreaBottom)
-      this.position_y = this.view.movingAreaBottom;
-
-    if (this.left < this.view.movingAreaLeft) this.position_x = this.view.movingAreaLeft;
-    if (this.right > this.view.movingAreaRight)
-      this.position_x = this.view.movingAreaRight;
-  }
-  */
 
   void update() {
+
+    // Collision detection für nur ein Feld (proof of concept)
+    if (bladeCenterPoint().x >= feldCenterPoint().x - 25 &&
+        bladeCenterPoint().x <= feldCenterPoint().x + 25 &&
+        bladeCenterPoint().y >= feldCenterPoint().y - 25 &&
+        bladeCenterPoint().y <= feldCenterPoint().y + 25) {
+
+        print("Blade mit Feld kollidiert!");
+    }
     
     // Initialer Aufruf der Debug-Funktion für Position des Levels
     view.moveLevelDebug();
