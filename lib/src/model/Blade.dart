@@ -29,21 +29,19 @@ class Blade extends Entity {
 
   int get height => (2 * this.radius).floor();
 
-  //Point get center => Point(this.width - (this.width / 2), this.center_y);
-
+  // Calculate the center of the blade
   Point bladeCenterPoint(){
-    Point t = view.blade.documentOffset;
-    Point tmp = new Point(t.x + this.radius.floor(), t.y + this.radius.floor());
-    return tmp;
-  }
-  Point feldCenterPoint(){
-    Point t = view.feld.documentOffset;
-    Point tmp = new Point(t.x + 25, t.y + 25);
-    return tmp;
+    Point offsetBlade = view.blade.documentOffset;
+    Point bladeCenterPoint = new Point(offsetBlade.x + this.radius.floor(), offsetBlade.y + this.radius.floor());
+    return bladeCenterPoint;
   }
 
-
-  double get center_y => this.height / 2;
+  // Calculate the center of ONE field (proof of concept)
+  Point fieldCenterPoint(Element field){
+    Point offsetField = field.documentOffset;
+    Point fieldCenterPoint = new Point(offsetField.x + 25, offsetField.y + 25);
+    return fieldCenterPoint;
+  }
 
   /**
    * Sets the moving vector [dx] and [dy] of the circle.
@@ -73,10 +71,10 @@ class Blade extends Entity {
   void update() {
 
     // Collision detection für nur ein Feld (proof of concept)
-    if (bladeCenterPoint().x >= feldCenterPoint().x - 25 &&
-        bladeCenterPoint().x <= feldCenterPoint().x + 25 &&
-        bladeCenterPoint().y >= feldCenterPoint().y - 25 &&
-        bladeCenterPoint().y <= feldCenterPoint().y + 25) {
+    if (bladeCenterPoint().x >= fieldCenterPoint(view.feld).x - 25 &&
+        bladeCenterPoint().x <= fieldCenterPoint(view.feld).x + 25 &&
+        bladeCenterPoint().y >= fieldCenterPoint(view.feld).y - 25 &&
+        bladeCenterPoint().y <= fieldCenterPoint(view.feld).y + 25) {
 
         print("Blade mit Feld kollidiert!");
     }

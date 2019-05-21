@@ -98,7 +98,8 @@ class DartbladeGameView{
     debugOutput.innerHtml =
         "moving level: ${direction} <br>"
         "Position level top: ${level.style.top} <br>"
-        "Position level right: ${level.style.right}";
+        "Position level right: ${level.style.right} <br>"
+        "collision with field: ";
   }
 
 }
