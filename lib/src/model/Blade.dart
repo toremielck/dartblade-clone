@@ -69,18 +69,18 @@ class Blade extends Entity {
    */
 
   void update() {
-
+    var coll;
     // Collision detection für nur ein Feld (proof of concept)
     if (bladeCenterPoint().x >= fieldCenterPoint(view.feld).x - 25 &&
         bladeCenterPoint().x <= fieldCenterPoint(view.feld).x + 25 &&
         bladeCenterPoint().y >= fieldCenterPoint(view.feld).y - 25 &&
         bladeCenterPoint().y <= fieldCenterPoint(view.feld).y + 25) {
 
-        print("Blade mit Feld kollidiert!");
+      coll ="RED";
     }
     
     // Initialer Aufruf der Debug-Funktion für Position des Levels
-    view.moveLevelDebug();
+    view.moveLevelDebug(null, coll);
     
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;

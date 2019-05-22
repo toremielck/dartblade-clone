@@ -4,6 +4,7 @@ class DartbladeGameController{
 
   Blade _player;
   DartbladeGameView _view;
+  DartBladeGameModel _model;
 
   Timer spin;
   /**
@@ -12,7 +13,8 @@ class DartbladeGameController{
    */
   DartbladeGameController(){
     _view = new DartbladeGameView();
-    _player = new Blade(_view.center_x, _view.center_y, true ,  _view.size / 16, _view);
+    _model = new DartBladeGameModel(this);
+    _player = new Blade(_view.center_x, _view.center_y, true ,  25, _view);
 
     window.onDeviceOrientation.listen((ev) {
       // No device orientation
@@ -64,6 +66,9 @@ class DartbladeGameController{
     _view.startButton.onClick.listen((e) {
       _view.output.style.display = 'none';
       _view.game.style.display = 'block';
+
+      _model.loadLevel(0);
+
       initialiseSpin();
 
       _player.position(_view.center_x, _view.center_y);
@@ -81,6 +86,7 @@ class DartbladeGameController{
       _view.spinDisplay.text = "Spin: ${count}";
     });
     _view.spinDisplay.onClick.listen((ev) {
+      print(_model.levelSecret);
       spin.cancel();
 
       // Spin-Anzeige am oberen rechten Rand des viewports anzeigen
@@ -97,6 +103,8 @@ class DartbladeGameController{
        */
     });
   }
+
+
 
 
 }

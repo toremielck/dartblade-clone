@@ -1,24 +1,24 @@
 part of modelLib;
 
 class LoadingLevel{
-  int _levelNumber = -1;
-  String _levelSecret = null;
-  int _size_x;
-  int _size_y;
+ static int _levelNumber = -1;
+ static String _levelSecret = null;
+ static int _size_x;
+ static int _size_y;
 
-  String _levelStructur = null;
+ static String _levelStructur = null;
 
   // Dekodierung der LevelStruktur
   static const EDGE = "X";
   static const GROUND = "#";
   static const SEPARATOR = "|";
 
-  Future<bool> generateLevelFromJSON(int lvln) async{
+  static Future<bool> generateLevelFromJSON(int lvln) async{
     if(lvln == null){
       print("getlevle(lvln) is null");
     }
     try{
-      String json = await HttpRequest.getString("levels/level_${lvln}.json");
+      String json = await HttpRequest.getString("/levels/level_${lvln}.json");
 
       if(json == null) {
         throw new Exception("level_${lvln} not found");
@@ -31,9 +31,15 @@ class LoadingLevel{
       _size_y = allData["size_y"];
       _levelStructur = allData["levelStructur"];
 
-    } catch(e){
+      if(_levelNumber == null){
+        throw new Exception("Level kann nicht gelesen werden!");
+      }
+
+    } catch(e,  stackTrace){
         print("getLevel(): ${e}");
+        print(stackTrace);
     }
     return true;
   }
+
 }

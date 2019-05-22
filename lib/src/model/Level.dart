@@ -17,4 +17,24 @@ class Level{
     _position_y = value;
   }
 
+
+
+  // erstellung der entitäten
+
+ /* void createEntity(String levelStructure){
+    if( levelStructure == null){
+      print("createEntity() levelstructure is null!");
+      return;
+    }
+
+    List<String> levelRows =  levelStructure.split(LoadingLevel.SEPARATOR);
+
+   try{
+      for(int y = 0 y < )
+    }
+  */
+
+
+  }
+
 }

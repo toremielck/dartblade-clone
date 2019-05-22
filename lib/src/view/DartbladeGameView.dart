@@ -90,7 +90,7 @@ class DartbladeGameView{
     }
   }
 
-  void moveLevelDebug([direction]) {
+  void moveLevelDebug([direction, fieldCollision]) {
 
     // Falls sich das Level nicht bewegt setze direction auf "none"
     if (direction == null) direction = "none";
@@ -99,7 +99,7 @@ class DartbladeGameView{
         "moving level: ${direction} <br>"
         "Position level top: ${level.style.top} <br>"
         "Position level right: ${level.style.right} <br>"
-        "collision with field: ";
+        "collision with field: ${fieldCollision}";
   }
 
 }
