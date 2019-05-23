@@ -45,10 +45,10 @@ class DartbladeGameView{
     return (w > h) ? true: false;
   }
 
-  void moveLevel(direction, movingFactor) {
+  void moveLevel(direction, movingSpeed) {
     switch (direction) {
       case 'up':
-        levelPositionTop -= movingFactor;
+        levelPositionTop -= movingSpeed;
         level.style.setProperty("top", "${levelPositionTop}px");
 
         // Debug output für die Richtung der Bewegung des Levels
@@ -57,7 +57,7 @@ class DartbladeGameView{
         break;
 
       case 'down':
-        levelPositionTop += movingFactor;
+        levelPositionTop += movingSpeed;
         level.style.setProperty("top", "${levelPositionTop}px");
 
         // Debug output für die Richtung der Bewegung des Levels
@@ -66,7 +66,7 @@ class DartbladeGameView{
         break;
 
       case 'left':
-        levelPositionRight -= movingFactor;
+        levelPositionRight -= movingSpeed;
         level.style.setProperty("right", "${levelPositionRight}px");
 
         // Debug output für die Richtung der Bewegung des Levels
@@ -75,7 +75,7 @@ class DartbladeGameView{
         break;
 
       case 'right':
-        levelPositionRight += movingFactor;
+        levelPositionRight += movingSpeed;
         level.style.setProperty("right", "${levelPositionRight}px");
 
         // Debug output für die Richtung der Bewegung des Levels
