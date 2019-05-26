@@ -24,11 +24,11 @@ class Level {
   // Dann werden die einzelnen Symbole der level.json Datei in HTML-Divs umgesetzt
   // mit Hilfe der writeLevelStrctureToHTML()-Methode. Dies erfolgt alles asynchron.
   // Deshalb auch der Rückhabewert Future<bool>
-  Future<bool> generateLevelFromJSON(levelNumber) async {
+  Future<bool> generateLevelFromJSON(int levelNum) async {
 
     try {
 
-      await HttpRequest.getString("/levels/level_${levelNumber}.json").then((String requestResult) {
+      await HttpRequest.getString("/levels/level_${levelNum}.json").then((String requestResult) {
 
       var levelData = jsonDecode(requestResult);
 
@@ -45,7 +45,7 @@ class Level {
       return true;
 
     } catch (e) {
-      print("generateLevelFromJSON Error: ${e}");
+      print("generateLevelFromJSON Error: ${e} | levelSecret: ${_levelSecret}");
       return false;
     }
   }
