@@ -1,6 +1,5 @@
 part of modelLib;
 
-
 class Blade extends Entity {
   double position_x;
   double position_y;
@@ -29,18 +28,55 @@ class Blade extends Entity {
 
   int get height => (2 * this.radius).floor();
 
+  // Alle Tiles in einer Liste speichern für collsion detection
+  List<Element> saveAllTilesInList() {
+    var tiles = new List<Element>();
+
+    view.level.children.forEach((tile) {
+      tiles.add(tile);
+    });
+
+    return tiles;
+  }
+
   // Calculate the center of the blade
-  Point bladeCenterPoint(){
+  Point bladeCenterPoint() {
     Point offsetBlade = view.blade.documentOffset;
     Point bladeCenterPoint = new Point(offsetBlade.x + this.radius.floor(), offsetBlade.y + this.radius.floor());
     return bladeCenterPoint;
   }
 
-  // Calculate the center of ONE field (proof of concept)
-  Point fieldCenterPoint(Element field){
+  // Calculate the center of a field
+  Point fieldCenterPoint(Element field) {
     Point offsetField = field.documentOffset;
     Point fieldCenterPoint = new Point(offsetField.x + 25, offsetField.y + 25);
     return fieldCenterPoint;
+  }
+
+  // collision detection
+  Future<void> collisionDetection() async {
+
+    var tiles = saveAllTilesInList();
+
+    await tiles.forEach((tile) {
+
+      if (bladeCenterPoint().x >= fieldCenterPoint(tile).x - 25 &&
+          bladeCenterPoint().x <= fieldCenterPoint(tile).x + 25 &&
+          bladeCenterPoint().y >= fieldCenterPoint(tile).y - 25 &&
+          bladeCenterPoint().y <= fieldCenterPoint(tile).y + 25) {
+
+        // DEBUG
+        view.moveLevelDebug(null, tile.getAttribute("tileType"));
+
+        /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
+        if (tile.getAttribute("tileType") == "shake-tile") {
+          view.level.style.animationPlayState = view.level.style.animationPlayState == 'paused' ? 'running' : 'paused';
+        }
+
+      }
+
+    });
+
   }
 
   /**
@@ -69,19 +105,11 @@ class Blade extends Entity {
    */
 
   void update() {
-    var coll;
-    // Collision detection für nur ein Feld (proof of concept)
-    if (bladeCenterPoint().x >= fieldCenterPoint(view.feld).x - 25 &&
-        bladeCenterPoint().x <= fieldCenterPoint(view.feld).x + 25 &&
-        bladeCenterPoint().y >= fieldCenterPoint(view.feld).y - 25 &&
-        bladeCenterPoint().y <= fieldCenterPoint(view.feld).y + 25) {
 
-      coll ="RED";
-    }
-    
-    // Initialer Aufruf der Debug-Funktion für Position des Levels
-    view.moveLevelDebug(null, coll);
-    
+    view.moveLevelDebug();
+
+    collisionDetection();
+
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;
 

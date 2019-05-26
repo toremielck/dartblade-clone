@@ -19,11 +19,11 @@ class DartbladeGameController{
     window.onDeviceOrientation.listen((ev) {
       // No device orientation
       if (ev.alpha == null && ev.beta == null && ev.gamma == null) {
-        _view.qr.style.display = 'block'; // Show QR code
+        _view.displayUseSmartphone.style.display = 'block'; // Show QR code
       }
       // Device orientation available
       else {
-        _view.qr.style.display = 'none'; // Hide QR code
+        _view.displayUseSmartphone.style.display = 'none'; // Hide QR code
         if (_view.getLandscapeMode(_view.width, _view.height) == false) {
           _view.changeView.style.display = 'block';
         } else {
@@ -67,40 +67,36 @@ class DartbladeGameController{
       _view.output.style.display = 'none';
       _view.game.style.display = 'block';
 
-      _model.loadLevel(0);
+      // Neues Level generieren !
+      // (Die Nummer des Levels wird als Parameter übergeben.)
+      Level _level = new Level(0);
 
+      // Aufruf der Methode um den Spin des Kreisels zu initialisieren
       initialiseSpin();
 
       _player.position(_view.center_x, _view.center_y);
     });
   }
 
-  // Methode für Spin -> bisher nur wie bekomm ich eineng Wert und zeige ihn an, starte danach das spiel ... muss noch alles bisschen aufgeteilt werden
+  // Den Spin des Kreisels initialisieren und das Spiel starten
   void initialiseSpin() {
-    int count = 0;
+    int spinCount = 0;
     _view.spinDisplay.style.display = 'block';
-
     spin = Timer.periodic(new Duration(milliseconds: 250), (_) {
-      if (count >= 10) count = 0;
-      count++;
-      _view.spinDisplay.text = "Spin: ${count}";
+      if (spinCount >= 10) spinCount = 0;
+      spinCount++;
+      _view.spinDisplay.text = "Spin: ${spinCount}";
     });
-    _view.spinDisplay.onClick.listen((ev) {
-      print(_model.levelSecret);
-      spin.cancel();
 
-      // Spin-Anzeige am oberen rechten Rand des viewports anzeigen
-      _view.spinDisplay.style.right = "0px";
+    // Bei einem Klick auf das Spin-Feld wird der Spin-Timer beendet
+    // und das Spiel wird gestartet
+    _view.spinDisplay.onClick.listen((ev) {
+
+      spin.cancel();
 
       new Timer.periodic(new Duration(milliseconds: 50), (update) {
         _view.update(_player);
       });
-      /*
-      new Timer.periodic(new Duration(milliseconds: 2000), (update) {
-        _view.initSpin.style.display = 'none';
-      });
-
-       */
     });
   }
 

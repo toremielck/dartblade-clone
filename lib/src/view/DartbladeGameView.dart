@@ -7,13 +7,11 @@ class DartbladeGameView{
   final spinDisplay = document.querySelector("#spinDisplay");
   final game = document.querySelector("#game");
   final level = document.querySelector("#level");
-  final qr = document.querySelector("#qr");
+  final displayUseSmartphone = document.querySelector("#displayUseSmartphone");
   final changeView = document.querySelector("#changeView");
-  final output = document.querySelector("#startmenu");
+  final output = document.querySelector("#startMenu");
   final movingArea = document.querySelector("#movingArea");
   final debugOutput = document.querySelector("#debugOutput");
-
-  final feld = document.querySelector("#wichtigesFeld");
 
   // ViewPort-Variablen
   int get width => window.innerWidth;
@@ -40,9 +38,8 @@ class DartbladeGameView{
     this.blade.style.borderRadius = round;
   }
 
-
   bool getLandscapeMode(int w, int h){
-    return (w > h) ? true: false;
+    return (w > h) ? true : false;
   }
 
   void moveLevel(direction, movingSpeed) {
@@ -52,7 +49,7 @@ class DartbladeGameView{
         level.style.setProperty("top", "${levelPositionTop}px");
 
         // Debug output für die Richtung der Bewegung des Levels
-        moveLevelDebug(direction);
+        (direction);
 
         break;
 
@@ -84,13 +81,12 @@ class DartbladeGameView{
         break;
 
       default:
-        debugOutput.text = "no level shifting";
         break;
 
     }
   }
 
-  void moveLevelDebug([direction, fieldCollision]) {
+  void moveLevelDebug([direction, collisionField]) {
 
     // Falls sich das Level nicht bewegt setze direction auf "none"
     if (direction == null) direction = "none";
@@ -99,7 +95,7 @@ class DartbladeGameView{
         "moving level: ${direction} <br>"
         "Position level top: ${level.style.top} <br>"
         "Position level right: ${level.style.right} <br>"
-        "collision with field: ${fieldCollision}";
+        "collision with field: ${collisionField}";
   }
 
 }
