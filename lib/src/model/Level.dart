@@ -28,7 +28,10 @@ class Level {
 
     try {
 
-      await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json").then((String requestResult) {
+      // Wenn es auf dem mylab-Server laufen soll muss der Pfad der JSON-Levels anders
+      // angegeben werden:
+      // await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json").then((String requestResult)
+      await HttpRequest.getString("/levels/level_${levelNum}.json").then((String requestResult) {
 
       var levelData = jsonDecode(requestResult);
 
