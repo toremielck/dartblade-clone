@@ -28,7 +28,7 @@ class Level {
 
     try {
 
-      await HttpRequest.getString("/levels/level_${levelNum}.json").then((String requestResult) {
+      await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json").then((String requestResult) {
 
       var levelData = jsonDecode(requestResult);
 

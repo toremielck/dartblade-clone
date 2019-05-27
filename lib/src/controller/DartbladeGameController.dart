@@ -69,7 +69,7 @@ class DartbladeGameController{
 
       // Neues Level generieren !
       // (Die Nummer des Levels wird als Parameter übergeben.)
-      Level _level = new Level(1);
+      Level _level = new Level(0);
 
       // Aufruf der Methode um den Spin des Kreisels zu initialisieren
       initialiseSpin();
