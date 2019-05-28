@@ -6,4 +6,4 @@ import 'dart:math';
 import 'package:dartblade/modelLib.dart';
 import 'package:dartblade/controllerLib.dart';
 
-part 'src/view/DartbladeGameView.dart';
+part 'src/view/DartBladeGameView.dart';

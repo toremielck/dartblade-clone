@@ -1,6 +1,6 @@
 part of viewLib;
 
-class DartbladeGameView{
+class DartBladeGameView{
   final blade = document.querySelector("#blade");
   final startButton = document.querySelector("#start");
   final enterSecretButton = document.querySelector("#entersecret");

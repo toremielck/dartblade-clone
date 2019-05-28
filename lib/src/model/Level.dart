@@ -2,9 +2,21 @@ part of modelLib;
 
 class Level {
 
-  Level(levelNumber) {
-    this.generateLevelFromJSON(levelNumber);
+  static const SEPERATOR = "|";
+  static const GAMEOVERTILE = "X";
+  static const NORMALTILE = "#";
+  static const SPINTILE = "~";
+
+  Level(int levelNumber) {
+    getLevelDataFromJSON(levelNumber);
+
   }
+
+  // Verknüfpung zum Model
+  DartBladeGameModel _model;
+
+  // Verknüpfung zur View
+  DartBladeGameView _view;
 
   // Position des Levels
   int _position_x;
@@ -20,11 +32,17 @@ class Level {
   // Struktur des Levels kodiert als einzelne Tiles
   String _levelStructur;
 
+  String type;
+
+
+  List<List<Tile>> _levelTiles;
+
+
   // Die JSON-Level-Datei abholen und den Inhalt der JSON-Datei in die Level-Variablen schreiben.
   // Dann werden die einzelnen Symbole der level.json Datei in HTML-Divs umgesetzt
   // mit Hilfe der writeLevelStrctureToHTML()-Methode. Dies erfolgt alles asynchron.
   // Deshalb auch der Rückhabewert Future<bool>
-  Future<bool> generateLevelFromJSON(int levelNum) async {
+  Future<bool> getLevelDataFromJSON(int levelNum) async {
 
     try {
 
@@ -35,6 +53,8 @@ class Level {
 
       var levelData = jsonDecode(requestResult);
 
+
+
       _levelNumber = levelData["levelNumber"];
       _levelSecret = levelData["levelSecret"];
       _size_x = levelData["size_x"];
@@ -42,65 +62,57 @@ class Level {
       _levelStructur = levelData["levelStructur"];
 
       });
-
-      await writeLevelStructureToHTML(_levelStructur);
-
+      await writeLevelStructure(_levelStructur);
       return true;
 
     } catch (e) {
-      print("generateLevelFromJSON Error: ${e} | levelSecret: ${_levelSecret}");
+      print("getLevelDataFromJSON Error: ${e} | levelSecret: ${_levelSecret}");
       return false;
     }
   }
 
-  Future<bool> writeLevelStructureToHTML(String levelStructur) async {
-
+  Future<bool> writeLevelStructure(String levelStructur) async {
     // Das HTML-Element mit der id "level" auswählen und in Konstante abspeichern
     // um es mit den Tiles zu befüllen
-    // TODO: muss hier nicht irgendwie eine Verknüpfung zu dem Objekt aus der View
-    // TODO: her? Ich meine, man befüllt schließlich ein Element der View.
-    final levelDiv = document.querySelector("#level");
+    var levelDiv = _view.level;
 
-    levelStructur.runes.forEach((rune) {
+    List<String> levelRows = levelStructur.split(SEPERATOR);
 
-      // Holt sich den jeweiligen Buchstaben aus der levelStrctur
-      String tile = new String.fromCharCode(rune);
-
-      // Hier wird wird geprüft um welches Symbol es sich gerade handelt
-      // und dem entsprechend die einzelnen Tiles (divs) in das Level eingefügt.
-      switch (tile) {
-          // Leer-Tiles
-        case 'X':
-          var tileDiv = new DivElement();
-          tileDiv.className = "td border-tile";
-          tileDiv.setAttribute("tileType", "border-tile");
-          levelDiv.children.add(tileDiv);
-          break;
-          // Normal-Tiles
-        case '#':
-          var tileDiv = new DivElement();
-          tileDiv.className = "td background-water";
-          tileDiv.setAttribute("tileType", "water-tile");
-          levelDiv.children.add(tileDiv);
-          break;
-          // Spin-Tiles
-        case '~':
-          var tileDiv = new DivElement();
-          tileDiv.className = "td background-shake";
-          tileDiv.setAttribute("tileType", "shake-tile");
-          levelDiv.children.add(tileDiv);
-          break;
-          // Row-Tiles (!Sondefall: verursacht einen break in der Level-Struktur)
-          // so wie in HTML <br>
-        case '|':
-          var rowDiv = new DivElement();
-          rowDiv.className = "tr";
-          levelDiv.children.add(rowDiv);
-          break;
-        default:
-          print("Symbol für Tile nicht erkannt!");
-          break;
+    for (int x = 0; x <= this._size_x; x++) {
+      String line = levelRows[x];
+      for (int y = 0; y <= this._size_y; y++) {
+        switch (line[y]) {
+          case GAMEOVERTILE:
+          // Tile in HTML-Struktur schreiben
+            var tileDiv = new DivElement();
+            tileDiv.className = "td gameover-tile";
+            tileDiv.setAttribute("tileType", "gameover-tile");
+            levelDiv.children.add(tileDiv);
+            // Tile in Model-Tile-Liste einfügen
+            _levelTiles[x][y] = new Tile(x, y);
+            break;
+          case NORMALTILE:
+          // Tile in HTML-Struktur schreiben
+            var tileDiv = new DivElement();
+            tileDiv.className = "td normal-tile";
+            tileDiv.setAttribute("tileType", "normal-tile");
+            levelDiv.children.add(tileDiv);
+            // Tile in Model-Tile-Liste einfügen
+            _levelTiles[x][y] = new Tile(x, y);
+            break;
+          case SPINTILE:
+          // Tile in HTML-Struktur schreiben
+            var tileDiv = new DivElement();
+            tileDiv.className = "td spin-tile";
+            tileDiv.setAttribute("tileType", "spin-tile");
+            levelDiv.children.add(tileDiv);
+            // Tile in Model-Tile-Liste einfügen
+            _levelTiles[x][y] = new SpecialTile(x, y, _model);
+            break;
+          default:
+            break;
+        }
       }
-    });
+    }
   }
 }

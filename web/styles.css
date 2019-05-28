@@ -90,16 +90,16 @@ div.td {
     display: table-cell;
 }
 
-.border-tile {
+.gameover-tile {
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid white;
 }
 
-.background-water {
+.normal-tile {
     background-image: url("img/water.gif");
 }
 
-.background-shake {
+.spin-tile {
     background-image: url("img/spin.gif");
 }
 

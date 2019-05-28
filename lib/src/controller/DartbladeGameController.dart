@@ -2,19 +2,25 @@ part of controllerLib;
 
 class DartbladeGameController{
 
-  Blade _player;
-  DartbladeGameView _view;
+  // Verknüpfung zum Model
   DartBladeGameModel _model;
 
+  // Verknüpfung zum View
+  DartBladeGameView _view;
+
+  Blade _player;
+
   Timer spin;
+
+  int _currentLevel = 0;
   /**
    * Constructor for the DartbladeGameController object
    * It creates a new view from DartBladeGameView and initilizes the model with the reference _player
    */
   DartbladeGameController(){
-    _view = new DartbladeGameView();
+    _view = new DartBladeGameView();
     _model = new DartBladeGameModel(this);
-    _player = new Blade(_view.center_x, _view.center_y, true ,  25, _view);
+    _player = new Blade(_view.center_x, _view.center_y, 25, _view);
 
     window.onDeviceOrientation.listen((ev) {
       // No device orientation
@@ -68,15 +74,16 @@ class DartbladeGameController{
       _view.game.style.display = 'block';
 
       // Neues Level generieren !
-      // (Die Nummer des Levels wird als Parameter übergeben.)
-      Level _level = new Level(0);
-
+    //  startGame(null, 1);
+      Level level = new Level(0);
       // Aufruf der Methode um den Spin des Kreisels zu initialisieren
       initialiseSpin();
 
       _player.position(_view.center_x, _view.center_y);
     });
   }
+
+
 
   // Den Spin des Kreisels initialisieren und das Spiel starten
   void initialiseSpin() {
@@ -91,7 +98,6 @@ class DartbladeGameController{
     // Bei einem Klick auf das Spin-Feld wird der Spin-Timer beendet
     // und das Spiel wird gestartet
     _view.spinDisplay.onClick.listen((ev) {
-
       spin.cancel();
 
       new Timer.periodic(new Duration(milliseconds: 50), (update) {
@@ -100,7 +106,38 @@ class DartbladeGameController{
     });
   }
 
+  // Starte Spiel entweder mit Level 0 oder einem dem levelSecret entsprechendem Level!
+  void startGame([String levelSecret, int levelNumber]) {
 
+   // Starte bei Level 0
+    // TODO: Umstrukturieren
+    if (levelSecret == null && levelNumber == null) {
+      Level level = new Level(_currentLevel);
+    } else if (levelNumber > 0) {
+      Level level = new Level(_currentLevel);
+    } else if (levelSecret != null) {
+      _currentLevel = getLevelNumberFromLevelSecret(levelSecret);
+      if (_currentLevel == -1) {
+       //Steuerung für die View, wenn levelsecret gefunden, aber falsch
+      } else {
+        //erstelle Level vom levelSecret
+        Level level = new Level(_currentLevel);
+      }
+    }
+  }
 
+  int getLevelNumberFromLevelSecret(String levelSecret) {
+    Map _levelSecretMap = new Map();
+    _levelSecretMap[0] = 'abc';
+    _levelSecretMap[1] = '123';
+    _levelSecretMap[2] = 'qwe';
+
+    _levelSecretMap.forEach((levelNumber, s) {
+      if(levelSecret == s.toString()) {
+        return int.parse(levelNumber);
+      }
+    });
+    return -1;
+  }
 
 }

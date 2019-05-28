@@ -1,9 +1,9 @@
 part of modelLib;
 
-abstract class Entity{
-  double _x;
-  double _y;
-  bool _isCollisionPossible;
+class Tile extends Entity {
 
-  Entity(this._x, this._y, this._isCollisionPossible);
+  Tile(int x, int y) : super(x, y) {
+
+  }
+
 }

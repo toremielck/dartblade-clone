@@ -10,10 +10,10 @@ class Blade extends Entity {
   double spin;
   bool onfield;
 
-  DartbladeGameView view;
+  DartBladeGameView view;
 
-  Blade(double x, double y, bool collision,  this.radius, this.view)
-      : super(x, y, collision) {
+  Blade(double x, double y,  this.radius, this.view)
+      : super(x.floor(), y.floor()) {
   }
 
   int get top => (this.position_y - this.radius).floor();
