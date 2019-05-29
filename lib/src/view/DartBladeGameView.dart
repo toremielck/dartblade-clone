@@ -43,6 +43,7 @@ class DartBladeGameView{
   }
 
   void moveLevel(direction, movingSpeed) {
+
     switch (direction) {
       case 'up':
         levelPositionTop -= movingSpeed;
@@ -84,6 +85,19 @@ class DartBladeGameView{
         break;
 
     }
+  }
+
+ void generateTR(){
+   var tileDiv = new DivElement();
+   tileDiv.className = "tr";
+   level.children.add(tileDiv);
+ }
+
+  void generateTdgameoverElement(){
+    var tileDiv = new DivElement();
+    tileDiv.className = "td gameover-tile";
+    tileDiv.setAttribute("tileType", "gameover-tile");
+    level.children.add(tileDiv);
   }
 
   void moveLevelDebug([direction, collisionField]) {

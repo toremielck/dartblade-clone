@@ -1,9 +1,11 @@
 part of modelLib;
 
-class Tile extends Entity {
+class Tile {
 
-  Tile(int x, int y) : super(x, y) {
+  Tile(int x, int y){
 
   }
+
+  SpecialTile _specialTile;
 
 }

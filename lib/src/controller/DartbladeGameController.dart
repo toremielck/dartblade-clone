@@ -73,9 +73,8 @@ class DartbladeGameController{
       _view.output.style.display = 'none';
       _view.game.style.display = 'block';
 
-      // Neues Level generieren !
-    //  startGame(null, 1);
-      Level level = new Level(0);
+      Level level = new Level(_view);
+      level.getLevelDataFromJSON(0);
       // Aufruf der Methode um den Spin des Kreisels zu initialisieren
       initialiseSpin();
 
@@ -106,6 +105,7 @@ class DartbladeGameController{
     });
   }
 
+  /*
   // Starte Spiel entweder mit Level 0 oder einem dem levelSecret entsprechendem Level!
   void startGame([String levelSecret, int levelNumber]) {
 
@@ -125,6 +125,7 @@ class DartbladeGameController{
       }
     }
   }
+  */
 
   int getLevelNumberFromLevelSecret(String levelSecret) {
     Map _levelSecretMap = new Map();

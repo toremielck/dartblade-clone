@@ -7,11 +7,6 @@ class Level {
   static const NORMALTILE = "#";
   static const SPINTILE = "~";
 
-  Level(int levelNumber) {
-    getLevelDataFromJSON(levelNumber);
-
-  }
-
   // Verknüfpung zum Model
   DartBladeGameModel _model;
 
@@ -34,9 +29,12 @@ class Level {
 
   String type;
 
+  Element levelDiv;
 
-  List<List<Tile>> _levelTiles;
+  Level(this._view) {
+  }
 
+  List<List<Tile>> _levelTiles = new List<List<Tile>>();
 
   // Die JSON-Level-Datei abholen und den Inhalt der JSON-Datei in die Level-Variablen schreiben.
   // Dann werden die einzelnen Symbole der level.json Datei in HTML-Divs umgesetzt
@@ -53,16 +51,16 @@ class Level {
 
       var levelData = jsonDecode(requestResult);
 
-
-
       _levelNumber = levelData["levelNumber"];
       _levelSecret = levelData["levelSecret"];
       _size_x = levelData["size_x"];
       _size_y = levelData["size_y"];
       _levelStructur = levelData["levelStructur"];
-
       });
+
+      _initTiles();
       await writeLevelStructure(_levelStructur);
+
       return true;
 
     } catch (e) {
@@ -71,48 +69,66 @@ class Level {
     }
   }
 
-  Future<bool> writeLevelStructure(String levelStructur) async {
-    // Das HTML-Element mit der id "level" auswählen und in Konstante abspeichern
-    // um es mit den Tiles zu befüllen
-    var levelDiv = _view.level;
-
+  bool writeLevelStructure(String levelStructur) {
+    levelDiv = _view.level;
     List<String> levelRows = levelStructur.split(SEPERATOR);
 
-    for (int x = 0; x <= this._size_x; x++) {
-      String line = levelRows[x];
-      for (int y = 0; y <= this._size_y; y++) {
-        switch (line[y]) {
-          case GAMEOVERTILE:
-          // Tile in HTML-Struktur schreiben
-            var tileDiv = new DivElement();
-            tileDiv.className = "td gameover-tile";
-            tileDiv.setAttribute("tileType", "gameover-tile");
-            levelDiv.children.add(tileDiv);
-            // Tile in Model-Tile-Liste einfügen
-            _levelTiles[x][y] = new Tile(x, y);
-            break;
-          case NORMALTILE:
-          // Tile in HTML-Struktur schreiben
-            var tileDiv = new DivElement();
-            tileDiv.className = "td normal-tile";
-            tileDiv.setAttribute("tileType", "normal-tile");
-            levelDiv.children.add(tileDiv);
-            // Tile in Model-Tile-Liste einfügen
-            _levelTiles[x][y] = new Tile(x, y);
-            break;
-          case SPINTILE:
-          // Tile in HTML-Struktur schreiben
-            var tileDiv = new DivElement();
-            tileDiv.className = "td spin-tile";
-            tileDiv.setAttribute("tileType", "spin-tile");
-            levelDiv.children.add(tileDiv);
-            // Tile in Model-Tile-Liste einfügen
-            _levelTiles[x][y] = new SpecialTile(x, y, _model);
-            break;
-          default:
-            break;
+    try{
+      for (int y = 0; y < _size_y; y++) {
+
+        // Neue tr (row) ins HTML einfügen für den line-break
+      _view.generateTR();
+
+        String line = levelRows[y];
+        for (int x = 0; x < _size_x; x++) {
+
+          switch (line[x]) {
+            case GAMEOVERTILE:
+            // Tile in HTML-Struktur schreiben
+              _view.generateTdgameoverElement();
+              // Tile in Model-Tile-Liste einfügen
+              _levelTiles[y][x]._specialTile = new SpecialTile(x, y, _model);
+              break;
+            case NORMALTILE:
+            // Tile in HTML-Struktur schreiben
+              var tileDiv = new DivElement();
+              tileDiv.className = "td normal-tile";
+              tileDiv.setAttribute("tileType", "normal-tile");
+              levelDiv.children.add(tileDiv);
+              // Tile in Model-Tile-Liste einfügen
+              _levelTiles[y][x] = new Tile(x, y);
+              break;
+            case SPINTILE:
+            // Tile in HTML-Struktur schreiben
+              var tileDiv = new DivElement();
+              tileDiv.className = "td spin-tile";
+              tileDiv.setAttribute("tileType", "spin-tile");
+              levelDiv.children.add(tileDiv);
+              // Tile in Model-Tile-Liste einfügen
+              _levelTiles[x][y]._specialTile = new SpecialTile(x, y, _model);
+              break;
+            default:
+              break;
+          }
         }
       }
+    }catch(e){
+      print("writeLevelStructur(): $e ");
+      return false;
+    }
+
+  }
+
+  void _initTiles(){
+    if(_size_x == null || _size_y == null){
+      print("initTiles(): keine größe gefunden");
+    }
+    for(int y = 0; y < _size_y; y++){
+      List<Tile> list = new List();
+      for(int x = 0; x < _size_x; x++){
+        list.add(new Tile(x, y));
+      }
+      _levelTiles.add(list);
     }
   }
 }

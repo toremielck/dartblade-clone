@@ -54,11 +54,11 @@ class Blade extends Entity {
   }
 
   // collision detection
-  Future<void> collisionDetection() async {
+  void collisionDetection() {
 
     var tiles = saveAllTilesInList();
 
-    await tiles.forEach((tile) {
+     tiles.forEach((tile) {
 
       if (bladeCenterPoint().x >= fieldCenterPoint(tile).x - 25 &&
           bladeCenterPoint().x <= fieldCenterPoint(tile).x + 25 &&
