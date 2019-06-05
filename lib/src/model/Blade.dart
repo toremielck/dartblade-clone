@@ -74,7 +74,7 @@ class Blade extends Entity {
           view.level.style.display = 'none';
         }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
-        if (tile.getAttribute("tileType") == "shake-tile") {
+        if (tile.getAttribute("tileType") == "spin-tile") {
           view.level.style.animationPlayState = view.level.style.animationPlayState == 'paused' ? 'running' : 'paused';
         }
 
