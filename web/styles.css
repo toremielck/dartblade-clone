@@ -117,7 +117,6 @@ div.td {
 
 .spin-tile {
     background-image: url("img/spin.gif");
-    animation: spin 0.5s infinite;
 }
 
 .goal-tile {
