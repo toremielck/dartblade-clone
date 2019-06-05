@@ -5,7 +5,7 @@ class GameOverTile extends SpecialTile{
 
   @override
   void actionOnCollision(){
-    print("level geschafft");
+    print("level failed");
   }
 
 }

@@ -1,13 +1,13 @@
 part of modelLib;
 
-class SpecialTile extends Tile{
+abstract class SpecialTile extends Entity{
 
   DartBladeGameModel _model;
 
   SpecialTile (int x, int y, this._model) : super (x, y) {
   }
 
-  void actionOnColission() {
+  void _actionOnColission() {
     print("hello");
   }
 

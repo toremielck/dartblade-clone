@@ -2,8 +2,6 @@ part of modelLib;
 
 class DartBladeGameModel{
 
-
-
   bool _levelWon = false;
   bool _levelLost = false;
   int _currentLevel = -1;
@@ -16,7 +14,6 @@ class DartBladeGameModel{
   DartbladeGameController _controller;
 
   DartBladeGameModel(this._controller);
-
 
   // return tur if player success level, else false;
   bool get levelWon => _levelWon;
@@ -48,6 +45,5 @@ class DartBladeGameModel{
     _level = new Level(LoadingLevel._levelStructur, LoadingLevel._levelNumber, LoadingLevel._levelSecret, LoadingLevel._size_x, LoadingLevel._size_y, this);
     return true;
   }
-
 
 }

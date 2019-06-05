@@ -11,6 +11,7 @@ class Blade extends Entity {
   bool onfield;
 
   DartBladeGameView view;
+  Level _level;
 
   Blade(double x, double y,  this.radius, this.view)
       : super(x.floor(), y.floor()) {
@@ -67,7 +68,11 @@ class Blade extends Entity {
 
         // DEBUG
         view.moveLevelDebug(null, tile.getAttribute("tileType"));
-
+        if(tile.getAttribute("tileType") == "goal-tile"){
+          view.displayLevelFinshed.style.display = 'block';
+          view.blade.style.display = 'none';
+          view.level.style.display = 'none';
+        }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
         if (tile.getAttribute("tileType") == "shake-tile") {
           view.level.style.animationPlayState = view.level.style.animationPlayState == 'paused' ? 'running' : 'paused';

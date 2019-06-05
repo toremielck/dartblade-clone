@@ -22,7 +22,7 @@ class DartbladeGameController{
   DartbladeGameController(){
     _view = new DartBladeGameView();
     _model = new DartBladeGameModel(this);
-    _player = new Blade(_view.center_x, _view.center_y, 25, _view);
+
 
     window.onDeviceOrientation.listen((ev) {
       // No device orientation
@@ -82,19 +82,15 @@ class DartbladeGameController{
   void startNewGame(){
     // Aufruf der Methode um den Spin des Kreisels zu initialisieren
 
-
+    _player = new Blade(_view.center_x, _view.center_y, 25, _view);
     _level = _model.getMap();
 
     initialiseSpin();
-    createDivTable(_level);
     updateLevel(_level);
 
     _player.position(_view.center_x, _view.center_y);
   }
 
-  void createDivTable(List<List<TileTypes>> l){
-    _view.initDivTable(l);
-  }
 
   void updateLevel(List<List<TileTypes>> l ){
     _view.fillLevelWithEntity(l);
@@ -115,6 +111,7 @@ class DartbladeGameController{
     // Bei einem Klick auf das Spin-Feld wird der Spin-Timer beendet
     // und das Spiel wird gestartet
     _view.spinDisplay.onClick.listen((ev) {
+
       spin.cancel();
 
       new Timer.periodic(new Duration(milliseconds: 50), (update) {

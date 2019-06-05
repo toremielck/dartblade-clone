@@ -1,6 +1,6 @@
 part of viewLib;
 
-class DartBladeGameView{
+class DartBladeGameView {
   final blade = document.querySelector("#blade");
   final startButton = document.querySelector("#start");
   final enterSecretButton = document.querySelector("#entersecret");
@@ -12,6 +12,7 @@ class DartBladeGameView{
   final output = document.querySelector("#startMenu");
   final movingArea = document.querySelector("#movingArea");
   final debugOutput = document.querySelector("#debugOutput");
+  final displayLevelFinshed = document.querySelector("#displayLevelFinshed");
 
   // ViewPort-Variablen
   int get width => window.innerWidth;
@@ -87,47 +88,50 @@ class DartBladeGameView{
     }
   }
 
-  void initDivTable(List<List<TileTypes>> l ){
-    String s = _createMap(l);
-    level.innerHtml = s;
-  }
-  String _createMap(List<List<TileTypes>> l ){
-    String mapDivtable ="";
-
-    final field = l;
-    for(int row = 0; row < l.length; row++){
-      mapDivtable += "<div class=\"tr\">";
-
-      for(int col = 0; col < field[row].length; col++){
-        mapDivtable += "<div class=\"td\">" "" "</div>";
-      }
-
-      mapDivtable += "</div>";
-
-    }
-    return mapDivtable;
-  }
-  
-
   void fillLevelWithEntity(List<List<TileTypes>> l ){
-    var oneEntity = level.children[0].children[0];
+   // var oneEntity = level.children[0].children[0];
+
 
     int _row = 0;
     int _col = 0;
     for(List<TileTypes> row in l){
+      var tileDiv = new DivElement();
+      tileDiv.className = "tr";
+      level.children.add(tileDiv);
       for(TileTypes s in row){
         switch (s){
           case TileTypes.GROUNDTILE:
-            oneEntity.children[_row].children[_col].setAttribute("tileType", "ground-tile");
+            var tileDiv = new DivElement();
+            tileDiv.className = "td ground-tile";
+            tileDiv.setAttribute("tileType", "ground-tile");
+            tileDiv.setAttribute("x", "$_col");
+            tileDiv.setAttribute("y", "$_row");
+            level.children.add(tileDiv);
             break;
           case TileTypes.GAMEOVERTILE:
-            oneEntity.children[_row].children[_col].setAttribute("tileType", "gameover-tile");
+            var tileDiv = new DivElement();
+            tileDiv.className = "td gameover-tile";
+            tileDiv.setAttribute("tileType", "gameover-tile");
+            tileDiv.setAttribute("x", "$_col");
+            tileDiv.setAttribute("y", "$_row");
+            level.children.add(tileDiv);
             break;
           case TileTypes.SPINTILE:
-            oneEntity.children[_row].children[_col].setAttribute("tileType", "spin-tile");
+            var tileDiv = new DivElement();
+            tileDiv.className = "td spin-tile";
+            tileDiv.setAttribute("tileType", "spin-tile");
+            tileDiv.setAttribute("x", "$_col");
+            tileDiv.setAttribute("y", "$_row");
+
+            level.children.add(tileDiv);
             break;
           case TileTypes.GOALTILE:
-            oneEntity.children[_row].children[_col].setAttribute("tileType", "goal-tile");
+            var tileDiv = new DivElement();
+            tileDiv.className = "td goal-tile";
+            tileDiv.setAttribute("tileType", "goal-tile");
+            tileDiv.setAttribute("x", "$_col");
+            tileDiv.setAttribute("y", "$_row");
+            level.children.add(tileDiv);
             break;
           default:
             break;
@@ -140,19 +144,6 @@ class DartBladeGameView{
     }
   }
 
- /*void generateTR(){
-   var tileDiv = new DivElement();
-   tileDiv.className = "tr";
-   level.children.add(tileDiv);
- }
-
-  void generateTdgameoverElement(){
-    var tileDiv = new DivElement();
-    tileDiv.className = "td gameover-tile";
-    tileDiv.setAttribute("tileType", "gameover-tile");
-    level.children.add(tileDiv);
-  }
-*/
   void moveLevelDebug([direction, collisionField]) {
 
     // Falls sich das Level nicht bewegt setze direction auf "none"

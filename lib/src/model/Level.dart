@@ -7,6 +7,7 @@ class Level {
 
   // Verknüpfung zur View
   DartBladeGameView _view;
+  Blade _player;
 
   // Position des Levels
   int _position_x;
@@ -30,52 +31,7 @@ class Level {
     _initTiles();
     writeLevelStructure(levelStructur);
   }
-
   List<List<Tile>> _levelTiles = new List<List<Tile>>();
-
-  // Die JSON-Level-Datei abholen und den Inhalt der JSON-Datei in die Level-Variablen schreiben.
-  // Dann werden die einzelnen Symbole der level.json Datei in HTML-Divs umgesetzt
-  // mit Hilfe der writeLevelStrctureToHTML()-Methode. Dies erfolgt alles asynchron.
-  // Deshalb auch der Rückhabewert Future<bool>
-
-  /*
-  static Future<bool> getLevelDataFromJSON(int levelNum) async {
-
-   if(levelNum == null){
-     print("Level.getLevelDataFromJSON() levelNum: is null");
-     return false;
-   }
-
-    try {
-
-      // Wenn es auf dem mylab-Server laufen soll muss der Pfad der JSON-Levels anders
-      // angegeben werden:
-      // await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json").then((String requestResult)
-    //  await HttpRequest.getString("/levels/level_${levelNum}.json").then((String requestResult) {
-
-      String jsonCode = await HttpRequest.getString("/levels/level_${levelNum}.json");
-
-      var levelData = jsonDecode(jsonCode);
-
-      _levelNumber = levelData["levelNumber"];
-      _levelSecret = levelData["levelSecret"];
-      _size_x = levelData["size_x"];
-      _size_y = levelData["size_y"];
-      _levelStructur = levelData["levelStructur"];
-      }catch (e) {
-      print("getLevelDataFromJSON Error: ${e} | levelSecret: ${_levelSecret}");
-      return false;
-    }
-
-      _initTiles();
-      await writeLevelStructure(_levelStructur);
-
-      return true;
-
-
-  }
-
-  */
 
   List<List<TileTypes>> _getLevelTypes(){
     List<List<TileTypes>> returnList = new List<List<TileTypes>>();
@@ -106,51 +62,26 @@ class Level {
 
   void writeLevelStructure(String levelStructur) {
 
-
     List<String> levelRows = levelStructur.split(LoadingLevel.SEPERATOR);
 
     try{
       for (int y = 0; y < _size_y; y++) {
-
-        // Neue tr (row) ins HTML einfügen für den line-break
-   //   _view.generateTR();
 
         String line = levelRows[y];
         for (int x = 0; x < _size_x; x++) {
 
           switch (line[x]) {
             case LoadingLevel.GAMEOVERTILE:
-            // Tile in HTML-Struktur schreiben
-       //       _view.generateTdgameoverElement();
-              // Tile in Model-Tile-Liste einfügen
               _levelTiles[y][x]._specialTile = new GameOverTile(x, y, _model);
               break;
             case LoadingLevel.GROUNDTILE:
-            // Tile in HTML-Struktur schreiben
-         //     var tileDiv = new DivElement();
-          //    tileDiv.className = "td normal-tile";
-            //  tileDiv.setAttribute("tileType", "normal-tile");
-            //  levelDiv.children.add(tileDiv);
-              // Tile in Model-Tile-Liste einfügen
               _levelTiles[y][x]._specialTile = new GroundTile(x, y, _model);
               break;
             case LoadingLevel.SPINTILE:
-            // Tile in HTML-Struktur schreiben
-       //       var tileDiv = new DivElement();
-        //      tileDiv.className = "td spin-tile";
-         //     tileDiv.setAttribute("tileType", "spin-tile");
-          //    levelDiv.children.add(tileDiv);
-              // Tile in Model-Tile-Liste einfügen
-              _levelTiles[x][y]._specialTile = new SpinTile(x, y, _model);
+              _levelTiles[y][x]._specialTile = new SpinTile(x, y, _model);
               break;
             case LoadingLevel.GOALTILE:
-            // Tile in HTML-Struktur schreiben
-      //        var tileDiv = new DivElement();
-       //       tileDiv.className = "td goal-tile";
-        //      tileDiv.setAttribute("tileType", "goal-tile");
-         //     levelDiv.children.add(tileDiv);
-              // Tile in Model-Tile-Liste einfügen
-              _levelTiles[x][y]._specialTile = new GoalTile(x, y, _model);
+              _levelTiles[y][x]._specialTile = new GoalTile(x, y, _model);
               break;
             default:
               break;
