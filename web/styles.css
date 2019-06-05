@@ -156,14 +156,13 @@ background-finish {
 
 #debugOutput {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    min-width: 30%;
+    top: 10px;
+    min-width: 20%;
     margin: auto;
     padding: 10pt;
     background-color: rgba(153, 24, 27, 1.0);
     color: white;
-    font-size: 50%;
+    font-size: 30%;
     z-index: 1;
     display: block;
 }
