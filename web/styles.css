@@ -164,6 +164,7 @@ background-finish {
     color: white;
     font-size: 70%;
     z-index: 1;
+    display: none;
 }
 
 /* Keyframe Animations */
