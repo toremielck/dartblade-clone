@@ -163,7 +163,7 @@ background-finish {
     padding: 10pt;
     background-color: rgba(153, 24, 27, 1.0);
     color: white;
-    font-size: 70%;
+    font-size: 50%;
     z-index: 1;
     display: block;
 }
