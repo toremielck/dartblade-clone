@@ -69,18 +69,15 @@ html, body {
 }
 
 #displayLevelFinshed {
-    padding: 5px 20px 5px 20px;
-    margin-top: 40%;
+    position: relative;
+    top: 40%;
     margin: auto;
-    margin-bottom: 5px;
-    display: block;
-    text-decoration: none;
-    color: grey;
-    background: lightgray;
-    border-radius: 5px;
-    font-family: 'Press Start 2P', sans-serif;
-    font-size: 110%;
-    width: 250px;
+    padding: 10pt;
+    text-align: center;
+    background-color: rgba(153, 24, 27, 1.0);
+    color: white;
+    font-size: 70%;
+    z-index: 1;
     display: none;
 }
 
@@ -92,7 +89,7 @@ html, body {
     overflow-x: visible;
     overflow-y: visible;
     margin: auto;
-    animation: shake 0.5s infinite;
+    animation: spin 0.5s infinite;
     animation-play-state: paused;
 }
 

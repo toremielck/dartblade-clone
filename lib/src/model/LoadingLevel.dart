@@ -38,7 +38,7 @@ class LoadingLevel{
       // await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json").then((String requestResult)
       //  await HttpRequest.getString("/levels/level_${levelNum}.json").then((String requestResult) {
 
-      String jsonCode = await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json");
+      String jsonCode = await HttpRequest.getString("/levels/level_${levelNum}.json");
 
       var levelData = jsonDecode(jsonCode);
 
