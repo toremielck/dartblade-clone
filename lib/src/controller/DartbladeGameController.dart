@@ -2,10 +2,8 @@ part of controllerLib;
 
 class DartbladeGameController{
 
-  // Verknüpfung zum Model
+  // Verknüpfung zum Model und View
   DartBladeGameModel _model;
-
-  // Verknüpfung zum View
   DartBladeGameView _view;
 
   Blade _player;
@@ -13,6 +11,10 @@ class DartbladeGameController{
   Timer spin;
 
   int _currentLevel = 0;
+
+  var _level;
+
+  bool _pause = false;
   /**
    * Constructor for the DartbladeGameController object
    * It creates a new view from DartBladeGameView and initilizes the model with the reference _player
@@ -61,27 +63,43 @@ class DartbladeGameController{
       }
     });
 
-  clickOnStart();
+
+    _view.startButton.onClick.listen((e) {
+      _view.output.style.display = 'none';
+      _view.game.style.display = 'block';
+
+      _model.loadLevelInModel(_currentLevel).whenComplete(() =>startNewGame());
+
+
+    });
 
   }
   /**
   Starts the game by hiding the menu and starting the initilizeSpin() method.
   Then the postion of the _player object is set to the center of the viewport.
    */
-  void clickOnStart(){
-    _view.startButton.onClick.listen((e) {
-      _view.output.style.display = 'none';
-      _view.game.style.display = 'block';
 
-      Level level = new Level(_view);
-      level.getLevelDataFromJSON(0);
-      // Aufruf der Methode um den Spin des Kreisels zu initialisieren
-      initialiseSpin();
+  void startNewGame(){
+    // Aufruf der Methode um den Spin des Kreisels zu initialisieren
 
-      _player.position(_view.center_x, _view.center_y);
-    });
+
+    _level = _model.getMap();
+
+    initialiseSpin();
+    createDivTable(_level);
+    updateLevel(_level);
+
+    _player.position(_view.center_x, _view.center_y);
   }
 
+  void createDivTable(List<List<TileTypes>> l){
+    _view.initDivTable(l);
+  }
+
+  void updateLevel(List<List<TileTypes>> l ){
+    _view.fillLevelWithEntity(l);
+
+  }
 
 
   // Den Spin des Kreisels initialisieren und das Spiel starten

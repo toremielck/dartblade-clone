@@ -7,7 +7,7 @@ class Blade extends Entity {
   double direction_y = 0.0;
 
   double radius;
-  double spin;
+  int spin;
   bool onfield;
 
   DartBladeGameView view;

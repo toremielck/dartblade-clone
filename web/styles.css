@@ -84,23 +84,28 @@ div.tr{
     display: table-row;
 }
 
+
 div.td {
     min-width: 50px;
     height: 50px;
     display: table-cell;
 }
 
-.gameover-tile {
+#gameover-tile {
     background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid white;
+
 }
 
-.normal-tile {
+#ground-tile {
     background-image: url("img/water.gif");
 }
 
-.spin-tile {
+#spin-tile {
     background-image: url("img/spin.gif");
+}
+
+#goal-tile {
+    background-image: url("img/goal.png");
 }
 
 /*
