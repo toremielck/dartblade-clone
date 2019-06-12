@@ -50,7 +50,7 @@ html, body {
     color: white;
     font-size: 70%;
     z-index: 1;
-    display: none;
+    display: block;
 }
 
 #blade {
@@ -68,7 +68,19 @@ html, body {
     border: 1px solid black;
 }
 
-#displayLevelFinshed {
+#displayLevelFinished {
+    position: relative;
+    top: 40%;
+    margin: auto;
+    padding: 10pt;
+    text-align: center;
+    background-color: rgba(153, 24, 27, 1.0);
+    color: white;
+    font-size: 70%;
+    z-index: 1;
+    display: none;
+}
+#displayLevelFailed {
     position: relative;
     top: 40%;
     margin: auto;

@@ -12,7 +12,8 @@ class DartBladeGameView {
   final output = document.querySelector("#startMenu");
   final movingArea = document.querySelector("#movingArea");
   final debugOutput = document.querySelector("#debugOutput");
-  final displayLevelFinshed = document.querySelector("#displayLevelFinshed");
+  final displayLevelFinished = document.querySelector("#displayLevelFinished");
+  final displayLevelFailed = document.querySelector("#displayLevelFailed");
 
   // ViewPort-Variablen
   int get width => window.innerWidth;
@@ -49,39 +50,27 @@ class DartBladeGameView {
       case 'up':
         levelPositionTop -= movingSpeed;
         level.style.setProperty("top", "${levelPositionTop}px");
-
         // Debug output für die Richtung der Bewegung des Levels
         (direction);
-
         break;
-
       case 'down':
         levelPositionTop += movingSpeed;
         level.style.setProperty("top", "${levelPositionTop}px");
-
         // Debug output für die Richtung der Bewegung des Levels
         moveLevelDebug(direction);
-
         break;
-
       case 'left':
         levelPositionRight -= movingSpeed;
         level.style.setProperty("right", "${levelPositionRight}px");
-
         // Debug output für die Richtung der Bewegung des Levels
         moveLevelDebug(direction);
-
         break;
-
       case 'right':
         levelPositionRight += movingSpeed;
         level.style.setProperty("right", "${levelPositionRight}px");
-
         // Debug output für die Richtung der Bewegung des Levels
         moveLevelDebug(direction);
-
         break;
-
       default:
         break;
 
@@ -156,11 +145,26 @@ class DartBladeGameView {
         "collision with field: ${collisionField}";
   }
 
-  void displayLevelFinished(int levelNumber, String levelSecret){
-    displayLevelFinshed.innerHtml = "Level $levelNumber: finished <br>"
+  void showLevelFinished(int levelNumber, String levelSecret){
+    displayLevelFinished.innerHtml =
+        "Level $levelNumber: finished <br>"
         "Your Level Code: $levelSecret <br>";
 
-    displayLevelFinshed.style.display = "block";
+    displayLevelFinished.style.display = "block";
+  }
+  void hideLevelFinished(){
+    displayLevelFinished.style.display = "none";
+  }
+
+  void showLevelFailed(int levelNumber){
+    displayLevelFailed.innerHtml =
+        "Level $levelNumber: failed <br>"
+        "Be faster next time :) <br>"
+        "tap to restart <br>";
+    displayLevelFailed.style.display = "block";
+  }
+  void hideLevelFailed(){
+    displayLevelFailed.style.display = "none";
   }
 
 

@@ -39,7 +39,7 @@ class DartBladeGameModel{
 
   }
 
-  void setLevelFail(){
+  void setLevelLost(){
     _levelLost = true;
   }
 
@@ -47,6 +47,7 @@ class DartBladeGameModel{
 
   Future<bool> loadLevelInModel(int levelNumber) async {
     _player = null;
+    _level = null;
     if(!await LoadingLevel.getLevelDataFromJSON(levelNumber)) return false;
     _currentLevel = LoadingLevel._levelNumber;
     _levelSecret = getLevelSecretFromLevelNumber(_currentLevel);

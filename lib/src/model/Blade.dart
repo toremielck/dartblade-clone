@@ -75,7 +75,7 @@ class Blade extends Entity {
           view.level.style.display = 'none';
 
         */
-          model.setLevelFail();
+          model.setLevelLost();
 
         }
         if(tile.getAttribute("tileType") == "goal-tile"){
@@ -86,7 +86,7 @@ class Blade extends Entity {
         */
         model.setLevelWon();
 
-        view.displayLevelFinished(model._currentLevel,model._levelSecret);
+        view.showLevelFinished(model._currentLevel,model._levelSecret);
         }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
         if (tile.getAttribute("tileType") == "spin-tile") {
@@ -127,7 +127,6 @@ class Blade extends Entity {
   void update() {
 
     view.moveLevelDebug(model._currentLevel);
-
     collisionDetection();
 
     this.position_x += this.direction_x;
