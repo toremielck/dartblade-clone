@@ -14,6 +14,8 @@ class DartbladeGameController{
 
   var _level;
 
+
+
   bool _pause = false;
   /**
    * Constructor for the DartbladeGameController object
@@ -82,10 +84,11 @@ class DartbladeGameController{
   void startNewGame(){
     // Aufruf der Methode um den Spin des Kreisels zu initialisieren
 
-    _player = new Blade(_view.center_x, _view.center_y, 25, _view);
+    _player = new Blade(_view.center_x, _view.center_y, 25, _view, _model);
     _level = _model.getMap();
 
     initialiseSpin();
+
     updateLevel(_level);
 
     _player.position(_view.center_x, _view.center_y);
@@ -113,10 +116,14 @@ class DartbladeGameController{
     _view.spinDisplay.onClick.listen((ev) {
 
       spin.cancel();
+      gameLoop();
 
-      new Timer.periodic(new Duration(milliseconds: 50), (update) {
-        _view.update(_player);
-      });
+    });
+  }
+
+  void gameLoop(){
+    new Timer.periodic(new Duration(milliseconds: 50), (update) {
+      _view.update(_player);
     });
   }
 
@@ -142,18 +149,8 @@ class DartbladeGameController{
   }
   */
 
-  int getLevelNumberFromLevelSecret(String levelSecret) {
-    Map _levelSecretMap = new Map();
-    _levelSecretMap[0] = 'abc';
-    _levelSecretMap[1] = '123';
-    _levelSecretMap[2] = 'qwe';
 
-    _levelSecretMap.forEach((levelNumber, s) {
-      if(levelSecret == s.toString()) {
-        return int.parse(levelNumber);
-      }
-    });
-    return -1;
-  }
+
+
 
 }

@@ -144,7 +144,7 @@ class DartBladeGameView {
     }
   }
 
-  void moveLevelDebug([direction, collisionField]) {
+  void moveLevelDebug( [direction, collisionField]) {
 
     // Falls sich das Level nicht bewegt setze direction auf "none"
     if (direction == null) direction = "none";
@@ -155,5 +155,14 @@ class DartBladeGameView {
         "Position level right: ${level.style.right} <br>"
         "collision with field: ${collisionField}";
   }
+
+  void displayLevelFinished(int levelNumber, String levelSecret){
+    displayLevelFinshed.innerHtml = "Level $levelNumber: finished <br>"
+        "Your Level Code: $levelSecret <br>";
+
+    displayLevelFinshed.style.display = "block";
+  }
+
+
 
 }

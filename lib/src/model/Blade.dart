@@ -11,9 +11,10 @@ class Blade extends Entity {
   bool onfield;
 
   DartBladeGameView view;
+  DartBladeGameModel model;
   Level _level;
 
-  Blade(double x, double y,  this.radius, this.view)
+  Blade(double x, double y,  this.radius, this.view, this.model)
       : super(x.floor(), y.floor()) {
   }
 
@@ -68,10 +69,24 @@ class Blade extends Entity {
 
         // DEBUG
         view.moveLevelDebug(null, tile.getAttribute("tileType"));
-        if(tile.getAttribute("tileType") == "goal-tile"){
-          view.displayLevelFinshed.style.display = 'block';
+        if(tile.getAttribute("tileType") == "gameover-tile"){
+          /*   view.displayLevelFinshed.style.display = 'block';
           view.blade.style.display = 'none';
           view.level.style.display = 'none';
+
+        */
+          model.setLevelFail();
+
+        }
+        if(tile.getAttribute("tileType") == "goal-tile"){
+       /*   view.displayLevelFinshed.style.display = 'block';
+          view.blade.style.display = 'none';
+          view.level.style.display = 'none';
+
+        */
+        model.setLevelWon();
+
+        view.displayLevelFinished(model._currentLevel,model._levelSecret);
         }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
         if (tile.getAttribute("tileType") == "spin-tile") {
@@ -111,7 +126,7 @@ class Blade extends Entity {
 
   void update() {
 
-    view.moveLevelDebug();
+    view.moveLevelDebug(model._currentLevel);
 
     collisionDetection();
 
