@@ -20,6 +20,7 @@ class DartbladeGameController{
   int _currentLevel = 0;
   bool _gameRunning = true;
   var _level;
+  int _lastLevel = 10;
 
 
 
@@ -94,7 +95,7 @@ class DartbladeGameController{
   void gameLoop () {
 
     if(!isInitSpinTimerActive){
-      _view.getSpin.onClick.listen((ev) => handlegGtSpin());
+      _view.getSpin.onClick.listen((ev) => handlegGetSpin());
 
     }
     if(!isPlayerTimerActive){
@@ -105,10 +106,11 @@ class DartbladeGameController{
 
     if(!isInitSpinTimerActive && !isPlayerTimerActive){
       _view.displayLevelFailed.onClick.listen((ev)  => handledisplayLevelFailed());
+      _view.displayLevelFinished.onClick.listen((ev) => handleDisplayLevelFinished());
     }
 
   }
-  void handlegGtSpin(){
+  void handlegGetSpin(){
     cancelTimers();
     isInitSpinTimerActive = true;
     initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
@@ -136,7 +138,7 @@ class DartbladeGameController{
     playerTimer = new Timer.periodic(playerTimerSpeed, (_) {
       isPlayerTimerActive = true;
       // Den Player Spin im Model updaten
-      _player.spin = _player.spin - 1000;
+      _player.spin = _player.spin - 100;
 
       // Den Spin in der View anzeigen
       _view.spinDisplay.text = "Spin: ${_player.spin}";
@@ -153,6 +155,14 @@ class DartbladeGameController{
 
       }
 
+      if(_model.levelWon){
+        playerTimer.cancel();
+        print("level won");
+        _view.showLevelFinished(_model.currentLevel, _model.levelSecret);
+        _currentLevel++;
+        print("next level is: $_currentLevel");
+      }
+
     });
 
   }
@@ -166,6 +176,23 @@ class DartbladeGameController{
 
     gameLoop();
 
+
+  }
+
+  void handleDisplayLevelFinished() async{
+    cancelTimers();
+    spinCount = 0;
+    _player.spin = 0;
+    _view.displayLevelFinished.style.display ="none";
+    if(_currentLevel <= _lastLevel){
+      // load next level
+
+      await _model.loadLevelInModel(_currentLevel);
+      _view.level.innerHtml = "";
+      _view.getSpin.style.display ="block";
+      loadCurrentLevel();
+
+    }
 
   }
 

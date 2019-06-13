@@ -29,7 +29,9 @@ class DartBladeGameModel{
   bool get leveLost => _levelLost;
 
   // return current levelNumber
-  int get levelNumber => _currentLevel;
+  int get currentLevel => _currentLevel;
+
+  String get levelSecret => _levelSecret;
 
   // return current player spin
   int get playerSpin => _player.spin;

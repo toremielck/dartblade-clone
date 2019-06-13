@@ -86,7 +86,7 @@ class Blade extends Entity {
         */
         model.setLevelWon();
 
-        view.showLevelFinished(model._currentLevel,model._levelSecret);
+
         }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
         if (tile.getAttribute("tileType") == "spin-tile") {
