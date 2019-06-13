@@ -119,6 +119,11 @@ class Blade extends Entity {
     this.position_y = py;
   }
 
+  void setPosition(double newX, double newY){
+    this.position_x = newX;
+    this.position_y = newY;
+  }
+
   /**
    * Updates the position of the circle.
    * It is assured that the circle will remain in the viewport of the [view].
