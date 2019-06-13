@@ -14,6 +14,9 @@ class DartBladeGameView {
   final debugOutput = document.querySelector("#debugOutput");
   final displayLevelFinished = document.querySelector("#displayLevelFinished");
   final displayLevelFailed = document.querySelector("#displayLevelFailed");
+  final getSpin = document.querySelector("#getSpin");
+  final startLevel = document.querySelector("#startLevel");
+
 
   // ViewPort-Variablen
   int get width => window.innerWidth;

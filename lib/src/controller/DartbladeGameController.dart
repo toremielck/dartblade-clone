@@ -11,7 +11,7 @@ class DartbladeGameController{
   DartBladeGameView _view;
 
   Blade _player;
-
+  int spinCount = 0;
   Timer initSpinTimer;
   bool spinTimerActive = false;
   Timer playerTimer;
@@ -71,71 +71,91 @@ class DartbladeGameController{
       _view.game.style.display = 'block';
 
 
-      loadCurrentLevel();
+      _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
 
     });
 
   }
 
   void loadCurrentLevel() {
-    _model.loadLevelInModel(_currentLevel).whenComplete(buildCurrentLevel);
+
+    _level = _model.getMap();
+    _view.fillLevelWithEntity(_level);
+    buildCurrentLevel();
+
   }
 
   void buildCurrentLevel() {
-    _level = _model.getMap();
-    _view.fillLevelWithEntity(_level);
+
     _player.position(_view.center_x, _view.center_y);
+
     gameLoop();
   }
 
   void gameLoop () {
-    // Timer zum initialisieren des Spins
-    int spinCount = 0;
-    Timer initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
+    if(initSpinTimer != null) initSpinTimer.cancel();
+    if(playerTimer != null) playerTimer.cancel();
+    _view.getSpin.onClick.listen((ev) => handlegGtSpin());
+    _view.spinDisplay.onClick.listen((ev) => handleSpinDisplay());
+    _view.startLevel.onClick.listen((ev) => handleStartLevel());
+
+    _view.displayLevelFailed.onClick.listen((ev)  => handledisplayLevelFailed());
+  }
+  void handlegGtSpin(){
+    if( initSpinTimer != null) initSpinTimer.cancel();
+    initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
       if (spinCount >= 1000000) spinCount = 0;
       spinCount = spinCount + 1000;
       _view.spinDisplay.text = "Spin: ${spinCount}";
       _player.spin = spinCount;
     });
+  }
+  void handleSpinDisplay(){
+    print("click on spin display");
+    _view.getSpin.style.display ="none";
+    initSpinTimer.cancel();
+    _view.startLevel.text = "Your SPin is: ${_player.spin}";
+    _view.startLevel.style.display = "block";
+  }
+  void handleStartLevel(){
+    _view.startLevel.style.display = "none";
+    if(playerTimer != null) playerTimer.cancel();
+    playerTimer = new Timer.periodic(playerTimerSpeed, (_) {
+      // Den Player Spin im Model updaten
+      _player.spin = _player.spin - 1000;
 
+      // Den Spin in der View anzeigen
+      _view.spinDisplay.text = "Spin: ${_player.spin}";
 
-    // Stoppt den initSpinTimer beim klicken auf den initSpin Button
-    _view.spinDisplay.onClick.listen((ev) {
-      initSpinTimer.cancel();
-
-      // Starten des playerTimer
-      playerTimer = new Timer.periodic(new Duration(milliseconds: 50), (_) {
-
-        // Den Player(Blade) im View updaten
-        _view.update(_player);
-
-        // Den Player Spin im Model updaten
-        _player.spin = _player.spin - 1000;
-
-        // Den Spin in der View anzeigen
-        _view.spinDisplay.text = "Spin: ${_player.spin}";
-
-        // Den playerTimer stoppen wenn der Spin auf 0 ist und Overlay
-        // anzeigen, dass das Level verloren ist.
-        if(_player.spin <= 0) {
-          playerTimer.cancel();
-          _view.showLevelFailed(_currentLevel);
-        }
-
-      });
-
-      // Auf einen Klick auf das Level-failed Overlay warten, um das Level
-      // neu zu starten.
-      _view.displayLevelFailed.onClick.listen((ev) {
-        _view.hideLevelFailed();
-        _model.setLevelLost();
-        spinCount = 0;
-
-        loadCurrentLevel();
-      });
+      // Den playerTimer stoppen wenn der Spin auf 0 ist und Overlay
+      // anzeigen, dass das Level verloren ist.
+      // Den Player(Blade) im View updaten
+      _view.update(_player);
+      if(_player.spin <= 0) {
+        playerTimer.cancel();
+        _view.showLevelFailed(_currentLevel);
+      }
 
     });
+
   }
+
+  void handledisplayLevelFailed(){
+   if(initSpinTimer != null) initSpinTimer.cancel();
+   if(playerTimer != null) playerTimer.cancel();
+    playerTimer.cancel();
+    spinCount = 0;
+    _player.spin = 0;
+    _model.setLevelLost();
+    _view.displayLevelFailed.style.display = "none";
+    _view.getSpin.style.display = "block";
+    print("click overview failed");
+    gameLoop();
+
+
+  }
+
+
 
 
 

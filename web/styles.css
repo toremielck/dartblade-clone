@@ -52,6 +52,30 @@ html, body {
     z-index: 1;
     display: block;
 }
+#getSpin{
+    position: relative;
+    top: 40%;
+    margin: auto;
+    padding: 10pt;
+    text-align: center;
+    background-color: rgba(153, 24, 27, 1.0);
+    color: white;
+    font-size: 70%;
+    z-index: 1;
+    display: block;
+}
+#startLevel{
+    position: relative;
+    top: 40%;
+    margin: auto;
+    padding: 10pt;
+    text-align: center;
+    background-color: rgba(153, 24, 27, 1.0);
+    color: white;
+    font-size: 70%;
+    z-index: 1;
+    display: none;
+}
 
 #blade {
     position: fixed;
