@@ -26,7 +26,7 @@ class DartBladeGameModel{
   bool get levelWon => _levelWon;
 
   // return true if player failed level, else false;
-  bool get levelFail => _levelLost;
+  bool get leveLost => _levelLost;
 
   // return current levelNumber
   int get levelNumber => _currentLevel;
@@ -34,13 +34,20 @@ class DartBladeGameModel{
   // return current player spin
   int get playerSpin => _player.spin;
 
+  void initStartLevel(){
+    _levelWon = false;
+    _levelLost = false;
+  }
+
   void setLevelWon(){
     _levelWon = true;
+    _levelLost = false;
 
   }
 
   void setLevelLost(){
     _levelLost = true;
+    _levelWon = false;
   }
 
   List<List<TileTypes>> getMap() => _level._getLevelTypes();

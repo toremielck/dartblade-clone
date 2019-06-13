@@ -13,9 +13,9 @@ class DartbladeGameController{
   Blade _player;
   int spinCount = 0;
   Timer initSpinTimer;
-  bool spinTimerActive = false;
+  bool isInitSpinTimerActive = false;
   Timer playerTimer;
-  bool playerTimerActive = false;
+  bool isPlayerTimerActive = false;
 
   int _currentLevel = 0;
   bool _gameRunning = true;
@@ -65,8 +65,7 @@ class DartbladeGameController{
 
 
     _view.startButton.onClick.listen((e) {
-      if(initSpinTimer != null) initSpinTimer.cancel();
-      if(playerTimer != null) playerTimer.cancel();
+      cancelTimers();
       _view.output.style.display = 'none';
       _view.game.style.display = 'block';
 
@@ -88,39 +87,54 @@ class DartbladeGameController{
   void buildCurrentLevel() {
 
     _player.position(_view.center_x, _view.center_y);
-
+    cancelTimers();
     gameLoop();
   }
 
   void gameLoop () {
-    if(initSpinTimer != null) initSpinTimer.cancel();
-    if(playerTimer != null) playerTimer.cancel();
-    _view.getSpin.onClick.listen((ev) => handlegGtSpin());
-    _view.spinDisplay.onClick.listen((ev) => handleSpinDisplay());
-    _view.startLevel.onClick.listen((ev) => handleStartLevel());
 
-    _view.displayLevelFailed.onClick.listen((ev)  => handledisplayLevelFailed());
+    if(!isInitSpinTimerActive){
+      _view.getSpin.onClick.listen((ev) => handlegGtSpin());
+
+    }
+    if(!isPlayerTimerActive){
+      _view.startLevel.onClick.listen((ev) => handleStartLevel());
+      _view.spinDisplay.onClick.listen((ev) => handleSpinDisplay());
+    }
+
+
+    if(!isInitSpinTimerActive && !isPlayerTimerActive){
+      _view.displayLevelFailed.onClick.listen((ev)  => handledisplayLevelFailed());
+    }
+
   }
   void handlegGtSpin(){
-    if( initSpinTimer != null) initSpinTimer.cancel();
+    cancelTimers();
+    isInitSpinTimerActive = true;
     initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
+
       if (spinCount >= 1000000) spinCount = 0;
       spinCount = spinCount + 1000;
       _view.spinDisplay.text = "Spin: ${spinCount}";
       _player.spin = spinCount;
     });
+    print(isInitSpinTimerActive);
+    _view.getSpin.innerHtml ="Tap to start Spin | Tap on Spin to stop";
   }
   void handleSpinDisplay(){
-    print("click on spin display");
+    cancelTimers();
     _view.getSpin.style.display ="none";
-    initSpinTimer.cancel();
-    _view.startLevel.text = "Your SPin is: ${_player.spin}";
+    _view.startLevel.text = "Your SPin is: ${_player.spin} | click to start";
     _view.startLevel.style.display = "block";
   }
   void handleStartLevel(){
+    cancelTimers();
+    _model.initStartLevel();
+    print("level verloren: ${ _model.leveLost}");
     _view.startLevel.style.display = "none";
-    if(playerTimer != null) playerTimer.cancel();
+
     playerTimer = new Timer.periodic(playerTimerSpeed, (_) {
+      isPlayerTimerActive = true;
       // Den Player Spin im Model updaten
       _player.spin = _player.spin - 1000;
 
@@ -134,6 +148,9 @@ class DartbladeGameController{
       if(_player.spin <= 0) {
         playerTimer.cancel();
         _view.showLevelFailed(_currentLevel);
+        _model.setLevelLost();
+        print("level verloren: ${ _model.leveLost}");
+
       }
 
     });
@@ -141,18 +158,24 @@ class DartbladeGameController{
   }
 
   void handledisplayLevelFailed(){
-   if(initSpinTimer != null) initSpinTimer.cancel();
-   if(playerTimer != null) playerTimer.cancel();
-    playerTimer.cancel();
+    cancelTimers();
     spinCount = 0;
     _player.spin = 0;
-    _model.setLevelLost();
     _view.displayLevelFailed.style.display = "none";
     _view.getSpin.style.display = "block";
-    print("click overview failed");
+
     gameLoop();
 
 
+  }
+
+  void cancelTimers(){
+    if(initSpinTimer != null) {
+      initSpinTimer.cancel();
+    }
+      if(playerTimer != null){
+        playerTimer.cancel();
+    }
   }
 
 
