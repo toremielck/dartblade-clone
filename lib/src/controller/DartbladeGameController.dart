@@ -23,23 +23,29 @@ class DartbladeGameController{
   int _lastLevel = 10;
 
 
-
   bool _pause = false;
-  /**
-   * Constructor for the DartbladeGameController object
-   * It creates a new view from DartBladeGameView and initilizes the model with the reference _player
-   */
+
+  /// Konstruktor für den [DartbladeGameController] - Es wird sowohl eine [_view]-Instanz,
+  /// als auch eine Instanz des [_model] referenziert.
+  /// Es wird ein neues [_player]-Objekt angelegt.
+  ///
+  /// Danach wird geprüft ob das Gerät im Landscape-Modul gehalten wird und entsprechend
+  /// die Werte des Gyro-Sensors an die [_player.move(dx, dy)]-Funktion übergeben.
   DartbladeGameController(){
     _view = new DartBladeGameView();
     _model = new DartBladeGameModel(this);
 
     _player = new Blade(_view.center_x, _view.center_y, 25, _view, _model);
     window.onDeviceOrientation.listen((ev) {
-      // No device orientation
+
+      /// Es ist keine device orientation verfügbar. - Zeige entsprechenden Hinweis
+      /// in der View an.
       if (ev.alpha == null && ev.beta == null && ev.gamma == null) {
         _view.displayUseSmartphone.style.display = 'block'; // Show QR code
       }
-      // Device orientation available
+
+      /// Device orientation ist verfügbar. - Lasse die Hinweise in der View verschwinden
+      /// und rufe die [_player.move()]-Funktion mit den Bewegungs-Werten des Sensors auf.
       else {
         _view.displayUseSmartphone.style.display = 'none'; // Hide QR code
         if (_view.getLandscapeMode(_view.width, _view.height) == false) {
@@ -47,54 +53,63 @@ class DartbladeGameController{
         } else {
           _view.changeView.style.display = 'none';
 
-          // Determine ball movement from orientation event
-          //
-          // beta: 30° no move, 10° full up, 50° full down
-          // gamma: 0° no move, -20° full left, 20° full right
-          // final dy = min(50, max(10, ev.beta)) - 30;
-          //final dx = min(20, max(-20, ev.gamma));
-
-          //zu beachten : dy wird in der Klasse Blade in der Funktion umgekehrt !!
           final dx = min(20, max(-20, ev.beta));
           final dy = min(-20, max(-80, ev.gamma)) + 50;
-          _player.move(dx, dy);
 
+          _player.move(dx, dy);
 
         }
       }
     });
 
-
+    /// Warten auf ein Klick-Event zum Starten des Spiels.
     _view.startButton.onClick.listen((e) {
       cancelTimers();
       _view.output.style.display = 'none';
       _view.game.style.display = 'block';
 
-
+      /// Das aktuelle Level laden und bei Fertigstellung die loadCurrentLevel()-
+      /// Funktion aufrufen.
       _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
 
     });
 
   }
 
+  /// Erstellt das vorher geladene Level.
   void loadCurrentLevel() {
+
+    // Setzt die Position des Levels wieder auf die Startposition.
     resetLevelPosition();
+
     _level = _model.getMap();
+
+    /// Das HTML-Element, welches als Level genutzt wird mit den vorher geladenen
+    /// Tiles füllen.
     _view.fillLevelWithEntity(_level);
+
+    /// Start des Spiels. Der Player kan sich bewegen.
     buildCurrentLevel();
 
   }
 
   void buildCurrentLevel() {
+
+    /// Die Position des Players auf den Center des Viewports legen.
     _player.position(_view.center_x, _view.center_y);
 
-
-
-
+    /// Alle Timer beenden.
     cancelTimers();
+
+    /// Start des Game-Loops
     gameLoop();
   }
 
+  /// Haupt Game-Loop hier wird abgefragt, ob die Variblaen [isInitSpinTimerActive],
+  /// [isPlayerTimerActive] und eine UND-Bedingung beider aktiv sind.
+  /// Je nachdem, welcher der Satus aktiv ist wird ein onClick.listen() Event
+  /// an ein Objekt in der View angehängt. Dieses wartet dann auf seine Aktivierung
+  /// und startet die entsprechende Handler-Funktion.
   void gameLoop () {
 
     if(!isInitSpinTimerActive){
@@ -113,89 +128,138 @@ class DartbladeGameController{
     }
 
   }
+
+  /// Ist dafür zuständig den Spin immer hoch und wider runter alufen zu lassen
+  /// und dem Player den entsprechenden Spin zuzuweisen.
   void handlegGetSpin(){
+
+    /// Alle Timer beenden
     cancelTimers();
+
     isInitSpinTimerActive = true;
-    print("isTimerSPinActive: $isInitSpinTimerActive");
+
+    /// Zählen und anzeigen des Spins
     initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
 
       if (spinCount >= 1000000) spinCount = 0;
       spinCount = spinCount + 1000;
       _view.spinDisplay.text = "Spin: ${spinCount}";
       _player.spin = spinCount;
+
     });
-    print(isInitSpinTimerActive);
+
+    /// Overlay zum Starten des Spiels in der View anzeigen
     _view.getSpin.innerHtml ="Tap to start Spin | Tap on Spin to stop";
   }
+
+  /// Ausblenden des Overlays, welches zum wählen des Spins auffordert und
+  /// einblenden des Overlays, welches anzeigt, wieviel Spin man bekommen hat.
   void handleSpinDisplay(){
+
+    /// Alle Timer Beenden
     cancelTimers();
+
     _view.getSpin.style.display ="none";
     _view.startLevel.text = "Your SPin is: ${_player.spin} | click to start";
     _view.startLevel.style.display = "block";
   }
+
+  /// Zeigt das Player-Objekt in der View an und startet den Timer, welcher für
+  /// den Player verantwortlich ist. Dieser updatet im gegebenem Intervall des Spin
+  /// des Players und fragt sowohl Sieg, als auch Lost-Bedingung ab.
+  /// Sollte die Lost Bedingung erreicht sein (der Player hat keinen Spin mehr)
+  /// oder der Player fällt von der Spielplattform wird das Level neu gestartet.
+  /// Andernfalls (beim erreichen des Goal-Tiles) wird das nächste Level neu geladen.
   void handleStartLevel(){
     _view.blade.style.display = "block";
-    cancelTimers();
+
+    /// Alle Timer beenden
+    cancelTimers()
+
     _model.initStartLevel();
-    print("level verloren: ${ _model.leveLost}");
     _view.startLevel.style.display = "none";
 
+    /// Dieser Timer updatet intervallgesteuert den Spin des Players und prüft
+    /// auf Sieg- oder Lost-Bedingung
     playerTimer = new Timer.periodic(playerTimerSpeed, (_) {
       isPlayerTimerActive = true;
+
       // Den Player Spin im Model updaten
       _player.spin = _player.spin - 100;
 
       // Den Spin in der View anzeigen
       _view.spinDisplay.text = "Spin: ${_player.spin}";
 
-      // Den playerTimer stoppen wenn der Spin auf 0 ist und Overlay
-      // anzeigen, dass das Level verloren ist.
       // Den Player(Blade) im View updaten
       _view.update(_player);
+
+      /// Der Spin des Players ist auf 0 und man hat verloren.
       if(_player.spin <= 0) {
         _view.blade.style.display = "none";
 
-        // Reset player position
-
+        /// Die Position des Spielers wieder auf den Mittelpunkt des Vieports
+        /// legen, damit dieser beim erneuten Starten des Siels nicht auf der
+        /// Position bleibt woer beim Beenden des Levels war.
         resetPlayerPositiontoCenter();
 
+        /// Den playerTimer stoppen wenn der Spin auf 0 ist und Overlay
+        /// anzeigen, dass das Level verloren ist. Außerdem im Model anzeigen,
+        /// dass das Level verloren wurde.
         playerTimer.cancel();
         _view.showLevelFailed(_currentLevel);
         _model.setLevelLost();
-        print("level verloren: ${ _model.leveLost}");
-
-
       }
 
+      /// Man hat das Goal-Tile erreicht und das Level ist gewonnen.
       if(_model.levelWon){
+
+        /// Ausblenden des Players bis zum Start des nächsten Levels.
         _view.blade.style.display = "none";
 
-        // Reset player position
+        /// Die Position des Spielers wieder auf den Mittelpunkt des Vieports
+        /// legen, damit dieser beim erneuten Starten des Siels nicht auf der
+        /// Position bleibt woer beim Beenden des Levels war.
         resetPlayerPositiontoCenter();
 
+        /// Den Timer für den Player stoppen.
         playerTimer.cancel();
-        print("level won");
+
+        /// In der View anzeigen, dass das aktuelle Level gewonnen wurde und
+        /// das entsprechende Level-Secret hierfür darstellen.
+        /// Auf diese Weise (Level-Secret) kann ein Spieler später wieder dort
+        /// weiterspielen, wo er aufgehört hat.
         _view.showLevelFinished(_model.currentLevel, _model.levelSecret);
+
+        /// Die Nummer des aktuellen Levels um 1 erhöhen, damit man beim erneuten
+        /// Staten des Spiels in das nächste Level kommt.
         _currentLevel++;
-        print("next level is: $_currentLevel");
       }
-
-
     });
-
   }
 
+  /// Wird aufgerufen, sobald man ein Level verloren hat und dieses durch einen
+  /// Klick auf das entsprechende Overlay neu starten möchte.
+  /// Es wird der [spinCount] auf 0 gesetzt, um Den [spinCount] wieder hoch und
+  /// runter zählen lassen zu können. Außerdem wird der [_player.spin] auf 0 gesetzt,
+  /// damit dieser nicht beim erneuten Starten des Levels schon einen Wert besitzt.
   void handledisplayLevelFailed() async {
+
+    /// Alle Timer beenden
     cancelTimers();
+
     spinCount = 0;
     _player.spin = 0;
+
+    /// In der View wird ein Overlay angezeigt, dass man das Level verloren hat
+    /// und es durch einen Klick auf dieses Overlay nochmal probieren kann.
     _view.displayLevelFailed.style.display = "none";
     _view.getSpin.style.display = "block";
 
-
-
+    /// Lade das aktuelle Level neu. Hierzu wird das Level vollständig neu
+    /// über JSON in das Model eingelesen und dann auch alle Variablen durch
+    /// loadCurrentLevel() neu gesetzt. Dies soll verhindern, dass eventuelle
+    /// Werte von vorherigen Durchläufen nicht wieder zurückgesetzt werden.
     if(_currentLevel <= _lastLevel){
-      // load next level
 
       await _model.loadLevelInModel(_currentLevel);
 
@@ -204,17 +268,20 @@ class DartbladeGameController{
 
     }
 
-
   }
 
+  /// Sollte die Sieg-Bedingung des Levels erfüllt werden werden auch hier genau
+  /// wie beim erneuten Spielen eines Levels, durch erfülte Lost-Bedingung
+  /// alle Variablen neu gesetzt und das Level per JSON vollständig neu geladen.
   void handleDisplayLevelFinished() async{
+
+    /// Alle Timer beenden.
     cancelTimers();
     spinCount = 0;
     _player.spin = 0;
     _view.displayLevelFinished.style.display ="none";
 
     if(_currentLevel <= _lastLevel){
-      // load next level
 
       await _model.loadLevelInModel(_currentLevel);
 
@@ -225,11 +292,18 @@ class DartbladeGameController{
 
   }
 
+  /// Die Position des Players auf den Center des Viewports setzen und dann die
+  /// View updaten. - Diese Funktion wird benötigt unm zwischen des Levels den
+  /// Player wieder auf seine Start-Position zu bringen.
   void resetPlayerPositiontoCenter(){
     _player.position(_view.center_x, _view.center_y);
     _view.update(_player);
 
   }
+
+  /// Setzt die Position des Levels wieder auf die Startposition. - Dies wird
+  /// benötigt um zwischen dem Laden der Levels nicht die alte Position des Levels
+  /// aus dem vorherigen Spiel zu übernehmen.
   void resetLevelPosition(){
     _view.level.innerHtml = "";
     _view.level.style.top = "0px";
@@ -238,6 +312,7 @@ class DartbladeGameController{
     _view.levelPositionRight = 0;
   }
 
+  /// Beendet den [initSpinTimer] und den [playerTimer].
   void cancelTimers(){
     if(initSpinTimer != null) {
       initSpinTimer.cancel();
