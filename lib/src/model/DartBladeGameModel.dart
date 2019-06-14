@@ -20,40 +20,45 @@ class DartBladeGameModel{
 
   DartbladeGameController _controller;
 
+  /// Konstruktor des [DartBladeGameModel]
+  /// Es wird eine Instanz des Controllers übergeben.
   DartBladeGameModel(this._controller);
 
-  // return tur if player success level, else false;
   bool get levelWon => _levelWon;
 
-  // return true if player failed level, else false;
   bool get leveLost => _levelLost;
 
-  // return current levelNumber
   int get currentLevel => _currentLevel;
 
   String get levelSecret => _levelSecret;
 
-  // return current player spin
   int get playerSpin => _player.spin;
 
+  /// Setze sowohl Sieg- als auch Lost-Bedingung auf false. (Start des Levels)
   void initStartLevel(){
     _levelWon = false;
     _levelLost = false;
   }
 
+  /// Setze Sieg-Bedingung auf true. (Level gewonnen!)
   void setLevelWon(){
     _levelWon = true;
     _levelLost = false;
 
   }
 
+  /// Setze Lost-Bedingung auf true. (Level verloren!)
   void setLevelLost(){
     _levelLost = true;
     _levelWon = false;
   }
 
+  /// Gibt die Map zurück, welche alle Tile-Typen enthält, welche im Level
+  /// vorkommen können.
   List<List<TileTypes>> getMap() => _level._getLevelTypes();
 
+  /// Holt sich die Level-Variablen aus einer JSON-Datei und ließt diese
+  /// in das Model ein.
   Future<bool> loadLevelInModel(int levelNumber) async {
     _player = null;
     _level = null;
@@ -64,12 +69,16 @@ class DartBladeGameModel{
     return true;
   }
 
-
+  /// Gibt das [levelSecret] des [currentLevel] zurück.
   String getLevelSecretFromLevelNumber(int currentLevel) {
     if(levelSecrets.containsKey(currentLevel)){
       return levelSecrets[currentLevel];
     }
   }
+
+  /// Gibt die Nummer des Levels für ein entsprechendes [levelSecret] zurück.
+  /// Dies wird gebraucht um bei der Eingabe eines [levelSecret] das dazugehörige
+  /// Level laden zu können.
   int getLevelNumberFromLevelSecret(String levelSecret) {
     if(levelSecrets.containsValue(levelSecret)){
       var key = levelSecrets.keys.firstWhere((k) => levelSecrets[k] == "$levelSecret", orElse: () => null);
@@ -78,7 +87,5 @@ class DartBladeGameModel{
       return -1;
     }
   }
-
-
 
 }
