@@ -1,7 +1,7 @@
 {
   "levelNumber": 0,
   "levelSecret": "ichbineingeheimnis",
-  "size_x": 5,
-  "size_y": 5,
-  "levelStructur": "XXXXXXXX|X######X|X#~~###X|X####~#X|X######X|XXXXXXXX|"
+  "size_x": 32,
+  "size_y": 14,
+  "levelStructur": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|X##############################X|X##############################X|X##############################X|X##############################X|X##############################X|X##############################X|X##############################X|X##############################X|X#######################XXX####X|X#######################XG#####X|X#######################XXX####X|X##############################X|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|"
 }
