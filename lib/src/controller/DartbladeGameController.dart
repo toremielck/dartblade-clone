@@ -174,7 +174,7 @@ class DartbladeGameController{
     _view.blade.style.display = "block";
 
     /// Alle Timer beenden
-    cancelTimers()
+    cancelTimers();
 
     _model.initStartLevel();
     _view.startLevel.style.display = "none";

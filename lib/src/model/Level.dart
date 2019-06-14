@@ -2,25 +2,28 @@ part of modelLib;
 
 class Level {
 
-  // Verknüfpung zum Model
+  /// Verknüfpung zum Model
   DartBladeGameModel _model;
 
-  // Verknüpfung zur View
+  /// Verknüpfung zur View
   DartBladeGameView _view;
   Blade _player;
 
-  // Position des Levels
+  /// Position des Levels
   int _position_x;
   int _position_y;
 
-  // Größe des Levels
+  /// Größe des Levels
  int _size_x;
  int _size_y;
 
+ /// Nummer des Levels
  int _levelNumber;
+
+ /// Das Secret des Levels
  String _levelSecret;
 
-  // Struktur des Levels kodiert als einzelne Tiles
+ /// Struktur des Levels kodiert als einzelne Tiles
   static String _levelStructur;
 
   String type;

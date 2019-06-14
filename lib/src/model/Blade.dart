@@ -14,6 +14,8 @@ class Blade extends Entity {
   DartBladeGameModel model;
   Level _level;
 
+  /// Konstruktor der [Blade] Klasse
+  /// Es werden die View und das Model mit übergeben.
   Blade(double x, double y,  this.radius, this.view, this.model)
       : super(x.floor(), y.floor()) {
   }
@@ -30,7 +32,7 @@ class Blade extends Entity {
 
   int get height => (2 * this.radius).floor();
 
-  // Alle Tiles in einer Liste speichern für collsion detection
+  /// Alle Tiles in einer Liste speichern für die collsion detection
   List<Element> saveAllTilesInList() {
     var tiles = new List<Element>();
 
@@ -41,25 +43,32 @@ class Blade extends Entity {
     return tiles;
   }
 
-  // Calculate the center of the blade
+  /// Gibt immer die aktuelle Position des Blades zurück.
   Point bladeCenterPoint() {
     Point offsetBlade = view.blade.documentOffset;
     Point bladeCenterPoint = new Point(offsetBlade.x + this.radius.floor(), offsetBlade.y + this.radius.floor());
     return bladeCenterPoint;
   }
 
-  // Calculate the center of a field
+  /// Berechnet (auch während sich das Level selbst bewegt) den Mittelpunkt eines
+  /// einzigen Tiles, welches als Parameter übergeben wird.
   Point fieldCenterPoint(Element field) {
     Point offsetField = field.documentOffset;
     Point fieldCenterPoint = new Point(offsetField.x + 25, offsetField.y + 25);
     return fieldCenterPoint;
   }
 
-  // collision detection
+  /// Collision detection
+  /// Die collision detection geht durchgehend die Liste aller Tiles durch und
+  /// überprüft, ob der Mittelpunkt des Players eine der Seiten eines Tiles berührt
+  /// hat.
+  /// Je nachdem welcher Tile-Typ es ist wird eine oder keine Aktion ausgeführt.
   void collisionDetection() {
 
+    /// Einlesen der Liste aller Tiles
     var tiles = saveAllTilesInList();
 
+    /// Eigentliche collision detection
      tiles.forEach((tile) {
 
       if (bladeCenterPoint().x >= fieldCenterPoint(tile).x - 25 &&
@@ -99,36 +108,27 @@ class Blade extends Entity {
 
   }
 
-  /**
-   * Sets the moving vector [dx] and [dy] of the circle.
-   * The next update will shift the center position of
-   * the circle according to this ([dx], [dy] vector).
-   */
+  /// Setzt die neue Richtung des Players
   void move(double dx, double dy) {
 
     this.direction_x = dx;
     this.direction_y = -dy;
   }
 
-  /**
-   * Sets the absolute position of the center of the
-   * circle to [cx] and [cy] position.
-   */
+  /// Setzt die absolute Position des Players
   void position(double px, double py) {
     this.position_x = px;
     this.position_y = py;
   }
 
+  /// TODO
   void setPosition(double newX, double newY){
     this.position_x = newX;
     this.position_y = newY;
   }
 
-  /**
-   * Updates the position of the circle.
-   * It is assured that the circle will remain in the viewport of the [view].
-   */
-
+  /// Updatet die Position des Players entsprechend der Werte des Gyro-Sensors
+  /// und führt die collision detection aus.
   void update() {
 
     view.moveLevelDebug(model._currentLevel);
@@ -137,24 +137,32 @@ class Blade extends Entity {
     this.position_x += this.direction_x;
     this.position_y += this.direction_y;
 
-    // Stellt sicher, dass der Blade innerhalb des viewports bleibt
+    /// Stellt sicher, dass der Blade innerhalb des Viewports bleibt und sich nur das
+    /// Level darunter in die entgegengesetzte Richtung bewegt.
+
+    /// BEGRENZUNG OBEN
     if (this.top < 1) {
       this.position_y = this.radius + 1;
       view.moveLevel("down", 5);
     }
-      if (this.bottom > this.view.height - 1) {
-        this.position_y = this.view.height - this.radius - 1;
-        view.moveLevel("up", 5);
-      }
 
-      if (this.left < 1) {
-        this.position_x = this.radius + 1;
-        view.moveLevel("left", 5);
-      }
-      if (this.right > this.view.width - 1) {
-        this.position_x = this.view.width - this.radius - 1;
-        view.moveLevel("right", 5);
-      }
+    /// BEGRENZUNG UNTEN
+    if (this.bottom > this.view.height - 1) {
+      this.position_y = this.view.height - this.radius - 1;
+      view.moveLevel("up", 5);
+    }
+
+    /// BEGRENZUNG LINKS
+    if (this.left < 1) {
+      this.position_x = this.radius + 1;
+      view.moveLevel("left", 5);
+    }
+
+    /// BEGRENZUNG RECHTS
+    if (this.right > this.view.width - 1) {
+      this.position_x = this.view.width - this.radius - 1;
+      view.moveLevel("right", 5);
+    }
 
   }
 
