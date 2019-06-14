@@ -1,6 +1,8 @@
 part of viewLib;
 
 class DartBladeGameView {
+
+  /// Laden aller benötigeten HTML-Elemente in Konstanten
   final blade = document.querySelector("#blade");
   final startButton = document.querySelector("#start");
   final enterSecretButton = document.querySelector("#entersecret");
@@ -18,7 +20,7 @@ class DartBladeGameView {
   final startLevel = document.querySelector("#startLevel");
 
 
-  // ViewPort-Variablen
+  /// ViewPort-Variablen
   int get width => window.innerWidth;
   int get height => window.innerHeight;
   int get size => min(this.width, this.height);
@@ -26,11 +28,11 @@ class DartBladeGameView {
   double get center_x => this.width / 2;
   double get center_y => this.height / 2;
 
-  // Positions-Variablen des Levels
+  /// Positions-Variablen des Levels
   int levelPositionTop = 0;
   int levelPositionRight = 0;
 
-
+  /// Updatet die Positionswerte des Players
   void update (Blade player){
     player.update();
 
@@ -43,10 +45,12 @@ class DartBladeGameView {
     this.blade.style.borderRadius = round;
   }
 
+  /// Abfragen ob der Landscape-Mode aktiv ist.
   bool getLandscapeMode(int w, int h){
     return (w > h) ? true : false;
   }
 
+  /// Bewegen des Levels in eine [direction] und mit einem [movingSpeed]
   void moveLevel(direction, movingSpeed) {
 
     switch (direction) {
@@ -80,12 +84,16 @@ class DartBladeGameView {
     }
   }
 
+  /// Füllen des HTML-Level-Elements mit den verschiedenen Tile-Typen als Divs
+  ///
+  /// Es wird jedem Div ein Typ und ein x-, sowie y-Wert mitgegeben.
   void fillLevelWithEntity(List<List<TileTypes>> l ){
-   // var oneEntity = level.children[0].children[0];
-
 
     int _row = 0;
     int _col = 0;
+
+    /// Gehe die Liste mit den verschiedenen Typen an Tiles, welche übergeben wird
+    /// durch und füge je nachdem, welches es ist eines in das HTML-Level-Element ein.
     for(List<TileTypes> row in l){
       var tileDiv = new DivElement();
       tileDiv.className = "tr";
@@ -114,7 +122,6 @@ class DartBladeGameView {
             tileDiv.setAttribute("tileType", "spin-tile");
             tileDiv.setAttribute("x", "$_col");
             tileDiv.setAttribute("y", "$_row");
-
             level.children.add(tileDiv);
             break;
           case TileTypes.GOALTILE:
@@ -130,7 +137,6 @@ class DartBladeGameView {
         }
         _col++;
       }
-
       _col = 0;
       _row++;
     }
@@ -148,6 +154,8 @@ class DartBladeGameView {
         "collision with field: ${collisionField}";
   }
 
+  /// Zeige an, dass das Level mit der entsprechenden [levelNumber] gewonnen wurde.
+  /// Zeige das [levelSecret] an.
   void showLevelFinished(int levelNumber, String levelSecret){
     displayLevelFinished.innerHtml =
         "Level $levelNumber: finished <br>"
@@ -155,10 +163,13 @@ class DartBladeGameView {
 
     displayLevelFinished.style.display = "block";
   }
+
+  /// Verstecke das Overlay, welches beim Sieg nach einem Level angezeigt wird.
   void hideLevelFinished(){
     displayLevelFinished.style.display = "none";
   }
 
+  /// Zeige an, dass das Level mit der antsprechenden [levelNumber] verloren wurde.
   void showLevelFailed(int levelNumber){
     displayLevelFailed.innerHtml =
         "Level $levelNumber: failed <br>"
@@ -166,10 +177,10 @@ class DartBladeGameView {
         "tap to restart <br>";
     displayLevelFailed.style.display = "block";
   }
+
+  /// Verstecke das Overlay, welches beim Verlieren nach einem Level angezeigt wird.
   void hideLevelFailed(){
     displayLevelFailed.style.display = "none";
   }
-
-
 
 }
