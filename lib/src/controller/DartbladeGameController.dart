@@ -22,7 +22,7 @@ class DartbladeGameController{
   var _level;
   int _lastLevel = 10;
 
-
+  String playerInputSecret = "";
   bool _pause = false;
 
   /// Konstruktor für den [DartbladeGameController] - Es wird sowohl eine [_view]-Instanz,
@@ -74,9 +74,25 @@ class DartbladeGameController{
 
     });
     _view.enterSecretButton.onClick.listen((e){
+      _view.showEnterSecretField();
+      _view.secretEntered.onClick.listen((ev) => handleSecret());
 
     });
 
+  }
+  void handleSecret(){
+    String  secretValue = ((document.querySelector('#secretField') as TextInputElement).value).toString();
+    int levelNumberFromSecret = _model.getLevelNumberFromLevelSecret(secretValue);
+    if( levelNumberFromSecret > -1){
+      _currentLevel = levelNumberFromSecret;
+      _view.output.style.display = 'none';
+      _view.game.style.display = 'block';
+
+      _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
+    }
+    else{
+
+    }
   }
 
   /// Erstellt das vorher geladene Level.

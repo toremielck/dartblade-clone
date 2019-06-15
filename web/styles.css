@@ -20,6 +20,9 @@ html, body {
     padding-bottom: 5%;
     background: rgba(255, 250, 250, 0.7);
 }
+#secretInput{
+    display: none;
+}
 
 #gameTitle {
     color: gray;
