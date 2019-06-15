@@ -73,6 +73,9 @@ class DartbladeGameController{
       _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
 
     });
+    _view.enterSecretButton.onClick.listen((e){
+
+    });
 
   }
 
@@ -101,6 +104,7 @@ class DartbladeGameController{
     /// Alle Timer beenden.
     cancelTimers();
 
+    _model.initStartLevel();
     /// Start des Game-Loops
     gameLoop();
   }
@@ -171,12 +175,13 @@ class DartbladeGameController{
   /// oder der Player fällt von der Spielplattform wird das Level neu gestartet.
   /// Andernfalls (beim erreichen des Goal-Tiles) wird das nächste Level neu geladen.
   void handleStartLevel(){
+    cancelTimers();
+    _model.initStartLevel();
     _view.blade.style.display = "block";
 
     /// Alle Timer beenden
-    cancelTimers();
 
-    _model.initStartLevel();
+
     _view.startLevel.style.display = "none";
 
     /// Dieser Timer updatet intervallgesteuert den Spin des Players und prüft
@@ -194,7 +199,7 @@ class DartbladeGameController{
       _view.update(_player);
 
       /// Der Spin des Players ist auf 0 und man hat verloren.
-      if(_player.spin <= 0) {
+      if(_player.spin <= 0 || (_model.leveLost && (_model.gameoverTrigger > 0))) {
         _view.blade.style.display = "none";
 
         /// Die Position des Spielers wieder auf den Mittelpunkt des Vieports
@@ -207,8 +212,8 @@ class DartbladeGameController{
         /// dass das Level verloren wurde.
         playerTimer.cancel();
         _view.showLevelFailed(_currentLevel);
-        _model.setLevelLost();
       }
+
 
       /// Man hat das Goal-Tile erreicht und das Level ist gewonnen.
       if(_model.levelWon){
@@ -270,6 +275,7 @@ class DartbladeGameController{
 
   }
 
+
   /// Sollte die Sieg-Bedingung des Levels erfüllt werden werden auch hier genau
   /// wie beim erneuten Spielen eines Levels, durch erfülte Lost-Bedingung
   /// alle Variablen neu gesetzt und das Level per JSON vollständig neu geladen.
@@ -279,6 +285,7 @@ class DartbladeGameController{
     cancelTimers();
     spinCount = 0;
     _player.spin = 0;
+    _model.gameoverTrigger = -1;
     _view.displayLevelFinished.style.display ="none";
 
     if(_currentLevel <= _lastLevel){

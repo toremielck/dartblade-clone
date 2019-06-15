@@ -11,12 +11,12 @@ class Blade extends Entity {
   bool onfield;
 
   DartBladeGameView view;
-  DartBladeGameModel model;
+  DartBladeGameModel _model;
   Level _level;
 
   /// Konstruktor der [Blade] Klasse
   /// Es werden die View und das Model mit übergeben.
-  Blade(double x, double y,  this.radius, this.view, this.model)
+  Blade(double x, double y,  this.radius, this.view, this._model)
       : super(x.floor(), y.floor()) {
   }
 
@@ -78,14 +78,10 @@ class Blade extends Entity {
 
         // DEBUG
         view.moveLevelDebug(null, tile.getAttribute("tileType"));
-        if(tile.getAttribute("tileType") == "gameover-tile"){
-          /*   view.displayLevelFinshed.style.display = 'block';
-          view.blade.style.display = 'none';
-          view.level.style.display = 'none';
 
-        */
-          model.setLevelLost();
 
+        if(tile.getAttribute("tileType") == "ground-tile"){
+          _model.initStartLevel();
         }
         if(tile.getAttribute("tileType") == "goal-tile"){
        /*   view.displayLevelFinshed.style.display = 'block';
@@ -93,9 +89,18 @@ class Blade extends Entity {
           view.level.style.display = 'none';
 
         */
-        model.setLevelWon();
+        _model.setLevelWon();
 
 
+        }
+        if(tile.getAttribute("tileType") == "gameover-tile"){
+          /*   view.displayLevelFinshed.style.display = 'block';
+          view.blade.style.display = 'none';
+          view.level.style.display = 'none';
+
+        */
+          _model.gameoverTrigger++;
+          _model.setLevelLost();
         }
         /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
         if (tile.getAttribute("tileType") == "spin-tile") {
@@ -131,7 +136,7 @@ class Blade extends Entity {
   /// und führt die collision detection aus.
   void update() {
 
-    view.moveLevelDebug(model._currentLevel);
+    view.moveLevelDebug(_model._currentLevel);
     collisionDetection();
 
     this.position_x += this.direction_x;

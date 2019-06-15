@@ -30,7 +30,7 @@ class Level {
 
   Element levelDiv;
 
-  Level(String levelStructur, this._levelNumber, this._levelSecret, this._size_x, this._size_y, this._model) {
+  Level(String levelStructur, this._levelNumber, this._size_x, this._size_y, this._model) {
     _initTiles();
     writeLevelStructure(levelStructur);
   }

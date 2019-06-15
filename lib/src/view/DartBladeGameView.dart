@@ -16,6 +16,7 @@ class DartBladeGameView {
   final debugOutput = document.querySelector("#debugOutput");
   final displayLevelFinished = document.querySelector("#displayLevelFinished");
   final displayLevelFailed = document.querySelector("#displayLevelFailed");
+
   final getSpin = document.querySelector("#getSpin");
   final startLevel = document.querySelector("#startLevel");
 
@@ -173,14 +174,17 @@ class DartBladeGameView {
   void showLevelFailed(int levelNumber){
     displayLevelFailed.innerHtml =
         "Level $levelNumber: failed <br>"
-        "Be faster next time :) <br>"
+        "be careful <br>"
         "tap to restart <br>";
+
     displayLevelFailed.style.display = "block";
   }
+
 
   /// Verstecke das Overlay, welches beim Verlieren nach einem Level angezeigt wird.
   void hideLevelFailed(){
     displayLevelFailed.style.display = "none";
   }
+
 
 }
