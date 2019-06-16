@@ -310,6 +310,9 @@ class DartbladeGameController{
     _model.gameoverTrigger = -1;
     _view.displayLevelFinished.style.display ="none";
 
+    if(_currentLevel > _lastLevel){
+      _view.showGameWon();
+    }
     if(_currentLevel <= _lastLevel){
 
       await _model.loadLevelInModel(_currentLevel);
