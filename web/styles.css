@@ -23,6 +23,41 @@ html, body {
 #secretInput{
     display: none;
 }
+#secretEntered{
+    padding: 5px 20px 5px 20px;
+    margin: auto;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: grey;
+    background: lightgray;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', sans-serif;
+
+}
+#secretField{
+    padding: 5px 20px 5px 20px;
+    margin: auto;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: grey;
+    background: lightgray;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', sans-serif;
+}
+#wrongSecret{
+    position: relative;
+    z-index: 100;
+    top: 10px;
+    width: 300px;
+    margin: auto;
+    padding: 10pt;
+    background-color: rgba(153, 24, 27, 0.5);
+    text-align: center;
+    color: white;
+    font-size: 70%;
+    text-align: center;
+    display: none;
+}
 
 #gameTitle {
     color: gray;

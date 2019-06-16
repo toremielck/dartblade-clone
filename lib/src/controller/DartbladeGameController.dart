@@ -90,12 +90,13 @@ class DartbladeGameController{
     if( levelNumberFromSecret > -1){
       _currentLevel = levelNumberFromSecret;
       _view.output.style.display = 'none';
+      _view.hideWrongSecretMessage();
       _view.game.style.display = 'block';
 
       _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
     }
     else{
-
+      _view.showWrongSecretMessage();
     }
   }
 
