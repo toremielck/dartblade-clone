@@ -19,7 +19,7 @@ class DartbladeGameController{
 
   int _currentLevel = 0;
   var _level;
-  int _lastLevel = 10;
+  int _lastLevel = 9;
 
   String playerInputSecret = "";
 

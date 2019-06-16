@@ -2,5 +2,5 @@
   "levelNumber": 8,
   "size_x": 32,
   "size_y": 12,
-  "levelStructur": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|X##############################X|XX#############################X|X##############################X|X##############~~~#############X|X##############################X|X###################XXXXX######X|X###################XGG########X|X########G##########XGG########X|X###################XXXXX######X|X##############################X|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|"
+  "levelStructur": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|X##############################X|XX#############################X|X##############################X|X##############~~~#############X|X##############################X|X###################XXXXXXXX###X|X######XXXXXXXXXXXXXXGG########X|X#######XGX#########XGG########X|X#######XX##########XXXXX######X|X#######XX#####################X|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|"
 }
