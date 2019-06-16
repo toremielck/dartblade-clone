@@ -12,10 +12,16 @@ class DartBladeGameModel{
   Level _level;
 
   Map levelSecrets = {
-    0: "sehrgeheim",
-    1: "abc",
-    2: "abe",
-    3: "js2"
+    0: "apfel893",
+    1: "birne726",
+    2: "banane829",
+    3: "tomate318",
+    4: "kiwi367",
+    5: "zwiebel982",
+    6: "gurke716",
+    7: "aubergine726",
+    8: "zucchini571",
+    9: "radieschen625",
   };
 
   DartbladeGameController _controller;
