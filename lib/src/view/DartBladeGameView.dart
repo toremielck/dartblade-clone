@@ -6,6 +6,8 @@ class DartBladeGameView {
   final blade = document.querySelector("#blade");
   final startButton = document.querySelector("#start");
   final enterSecretButton = document.querySelector("#entersecret");
+  final instructions = document.querySelector("#instructions");
+  final instructionsText = document.querySelector("#instructionsText");
   final spinDisplay = document.querySelector("#spinDisplay");
   final game = document.querySelector("#game");
   final level = document.querySelector("#level");
@@ -193,6 +195,22 @@ class DartBladeGameView {
   }
   void hideEnterSecretField(){
     enterSecretField.style.display = "none";
+  }
+
+  void showInstructiontext(){
+    instructionsText.innerHtml =
+    "Instructions <hr>"
+    "-reach the goal tile  <img src=\"img/goal.png\"> before your blade has no spin<br><br>"
+    "-if you fall down, restart the level<br><br>"
+    "-after sucess a level you get a secret<br><br>"
+    "-type the secret to start from this level <br><br>"
+    "-good luck and have fun<br><br>"
+    "-tip to go back to menu"
+    ;
+    instructionsText.style.display ="block";
+  }
+  void hideInstructionText(){
+    instructionsText.style.display = "none";
   }
 
 

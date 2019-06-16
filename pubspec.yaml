@@ -1,8 +1,9 @@
 name: dartblade
-description: An absolute bare-bones web app.
+description: Dartblade project for Webtechnologie Course
 # version: 1.0.0
 #homepage: https://www.example.com
-#author: david <email@example.com>
+#author: Tore Mielck
+#author: Mario Odzga
 
 environment:
   sdk: '>=2.1.0 <3.0.0'

@@ -18,12 +18,10 @@ class DartbladeGameController{
   bool isPlayerTimerActive = false;
 
   int _currentLevel = 0;
-  bool _gameRunning = true;
   var _level;
   int _lastLevel = 10;
 
   String playerInputSecret = "";
-  bool _pause = false;
 
   /// Konstruktor für den [DartbladeGameController] - Es wird sowohl eine [_view]-Instanz,
   /// als auch eine Instanz des [_model] referenziert.
@@ -73,10 +71,16 @@ class DartbladeGameController{
       _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
 
     });
+
     _view.enterSecretButton.onClick.listen((e){
       _view.showEnterSecretField();
       _view.secretEntered.onClick.listen((ev) => handleSecret());
 
+    });
+
+    _view.instructions.onClick.listen((e){
+      _view.showInstructiontext();
+      _view.instructionsText.onClick.listen((e) => _view.hideInstructionText());
     });
 
   }
@@ -191,11 +195,12 @@ class DartbladeGameController{
   /// oder der Player fällt von der Spielplattform wird das Level neu gestartet.
   /// Andernfalls (beim erreichen des Goal-Tiles) wird das nächste Level neu geladen.
   void handleStartLevel(){
+    /// Alle Timer beenden
+
     cancelTimers();
     _model.initStartLevel();
     _view.blade.style.display = "block";
 
-    /// Alle Timer beenden
 
 
     _view.startLevel.style.display = "none";

@@ -42,6 +42,18 @@ html, body {
     width: 250px;
 }
 
+#instructionsText {
+    margin: auto;
+    text-decoration: none;
+    color: grey;
+    background: lightgray;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+}
+
 #spinDisplay {
     position: absolute;
     top: 10px;
