@@ -21,6 +21,7 @@ class DartBladeGameView {
   final enterSecretField = document.querySelector("#secretInput");
   final secretEntered = document.querySelector("#secretEntered");
   final wrongSecret = document.querySelector("#wrongSecret");
+  final displayGameWon = document.querySelector("#displayGameWon");
 
   final getSpin = document.querySelector("#getSpin");
   final startLevel = document.querySelector("#startLevel");
@@ -220,6 +221,16 @@ class DartBladeGameView {
   }
   void hideWrongSecretMessage(){
     wrongSecret.style.display = "none";
+  }
+  void showGameWon(){
+    displayGameWon.innerHtml ="You beat the Game | reload page to play again";
+    displayGameWon.style.display = "block";
+
+  }
+
+  void hideGameWon(){
+    displayGameWon.style.display = "none";
+
   }
 
 

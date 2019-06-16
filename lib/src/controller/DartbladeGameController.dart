@@ -318,6 +318,9 @@ class DartbladeGameController{
       loadCurrentLevel();
 
     }
+    if(_currentLevel == _lastLevel){
+      _view.showGameWon();
+    }
 
   }
 
