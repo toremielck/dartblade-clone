@@ -92,7 +92,7 @@ class DartbladeGameController{
       _view.output.style.display = 'none';
       _view.hideWrongSecretMessage();
       _view.game.style.display = 'block';
-
+      cancelTimers();
       _model.loadLevelInModel(_currentLevel).whenComplete(loadCurrentLevel);
     }
     else{
@@ -318,9 +318,7 @@ class DartbladeGameController{
       loadCurrentLevel();
 
     }
-    if(_currentLevel == _lastLevel){
-      _view.showGameWon();
-    }
+
 
   }
 
