@@ -5,13 +5,8 @@ class Level {
   /// Verknüfpung zum Model
   DartBladeGameModel _model;
 
-  /// Verknüpfung zur View
-  DartBladeGameView _view;
   Blade _player;
 
-  /// Position des Levels
-  int _position_x;
-  int _position_y;
 
   /// Größe des Levels
  int _size_x;

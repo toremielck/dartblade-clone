@@ -5,10 +5,7 @@ class GoalTile extends SpecialTile{
 
 
 
-  @override void _actionOnCollision(){
-    print("level geschafft");
 
-  }
 
 
 }

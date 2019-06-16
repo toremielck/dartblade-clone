@@ -8,7 +8,6 @@ class Blade extends Entity {
 
   double radius;
   int spin;
-  bool onfield;
 
   DartBladeGameView view;
   DartBladeGameModel _model;
@@ -136,7 +135,6 @@ class Blade extends Entity {
   /// und führt die collision detection aus.
   void update() {
 
-    view.moveLevelDebug(_model._currentLevel);
     collisionDetection();
 
     this.position_x += this.direction_x;

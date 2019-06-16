@@ -5,9 +5,6 @@ class GroundTile extends SpecialTile{
 
 
 
-  @override void actionOnCollision(){
-    print("ground tile");
-    super._actionOnColission();
-  }
+
 
 }

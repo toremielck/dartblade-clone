@@ -193,18 +193,18 @@ div.td {
     color: white;
     font-size: 50%;
     z-index: 1;
-    display: block;
+    display: none;
 }
 
 /* Tiles */
 
 .gameover-tile {
-    background-color: rgba(0, 0, 0, 0.0);
+    background-image: url("img/gameover-tile.png");
 
 }
 
 .ground-tile {
-    background-image: url("img/ground.jpg");
+    background-image: url("img/ground.png");
 }
 
 .spin-tile {

@@ -7,8 +7,6 @@ abstract class SpecialTile extends Entity{
   SpecialTile (int x, int y, this._model) : super (x, y) {
   }
 
-  void _actionOnColission() {
-    print("hello");
-  }
+
 
 }

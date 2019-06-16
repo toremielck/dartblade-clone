@@ -153,7 +153,7 @@ class DartbladeGameController{
 
   }
 
-  /// Ist dafür zuständig den Spin immer hoch und wider runter alufen zu lassen
+  /// Ist dafür zuständig den Spin immer hoch und wieder runter laufen zu lassen
   /// und dem Player den entsprechenden Spin zuzuweisen.
   void handlegGetSpin(){
 
@@ -165,9 +165,9 @@ class DartbladeGameController{
     /// Zählen und anzeigen des Spins
     initSpinTimer = new Timer.periodic(initSpinDurationSpeed, (_) {
 
-      if (spinCount >= 1000000) spinCount = 0;
+      if (spinCount >= 100000) spinCount = 0;
       spinCount = spinCount + 1000;
-      _view.spinDisplay.text = "Spin: ${spinCount}";
+      _view.spinDisplay.text = "Spin: ${spinCount} (rpm)";
       _player.spin = spinCount;
 
     });
@@ -184,7 +184,7 @@ class DartbladeGameController{
     cancelTimers();
 
     _view.getSpin.style.display ="none";
-    _view.startLevel.text = "Your SPin is: ${_player.spin} | click to start";
+    _view.startLevel.text = "Your Spin is: ${_player.spin} | tap to start";
     _view.startLevel.style.display = "block";
   }
 
@@ -214,7 +214,7 @@ class DartbladeGameController{
       _player.spin = _player.spin - 100;
 
       // Den Spin in der View anzeigen
-      _view.spinDisplay.text = "Spin: ${_player.spin}";
+      _view.spinDisplay.text = "Spin: ${_player.spin} (rpm)";
 
       // Den Player(Blade) im View updaten
       _view.update(_player);
