@@ -251,6 +251,12 @@ class DartbladeGameController{
         /// Den Timer für den Player stoppen.
         playerTimer.cancel();
 
+
+        if(_model.currentLevel == _lastLevel){
+          print("ende");
+          _view.showGameWon();
+        }
+
         /// In der View anzeigen, dass das aktuelle Level gewonnen wurde und
         /// das entsprechende Level-Secret hierfür darstellen.
         /// Auf diese Weise (Level-Secret) kann ein Spieler später wieder dort
@@ -310,9 +316,6 @@ class DartbladeGameController{
     _model.gameoverTrigger = -1;
     _view.displayLevelFinished.style.display ="none";
 
-    if(_currentLevel > _lastLevel){
-      _view.showGameWon();
-    }
     if(_currentLevel <= _lastLevel){
 
       await _model.loadLevelInModel(_currentLevel);
