@@ -82,26 +82,22 @@ class Blade extends Entity {
         if(tile.getAttribute("tileType") == "ground-tile"){
           _model.initStartLevel();
         }
+
+        /// Sollte der Spieler auf dem Goal-Tile laden, setzte im Model, dass
+        /// das Level gewonnen wurde.
         if(tile.getAttribute("tileType") == "goal-tile"){
-       /*   view.displayLevelFinshed.style.display = 'block';
-          view.blade.style.display = 'none';
-          view.level.style.display = 'none';
-
-        */
         _model.setLevelWon();
-
-
         }
-        if(tile.getAttribute("tileType") == "gameover-tile"){
-          /*   view.displayLevelFinshed.style.display = 'block';
-          view.blade.style.display = 'none';
-          view.level.style.display = 'none';
 
-        */
+        /// Sollte der Spieler auf dem Gameover-Tile laden, setzte im Model, dass
+        /// das Level verloren wurde.
+        if(tile.getAttribute("tileType") == "gameover-tile"){
           _model.gameoverTrigger++;
           _model.setLevelLost();
         }
-        /* boxB.style.animationPlayState = boxB.style.animationPlayState == 'paused' ? 'running' : 'paused' */
+
+        /// Sollte der Spieler auf dem Spin-Tile laden, wird ausgeführt, dass
+        /// das geasmte Level wackelt. Dies erhöht die Schwierigkeit des Spiels!
         if (tile.getAttribute("tileType") == "spin-tile") {
           view.level.style.animationPlayState = view.level.style.animationPlayState == 'paused' ? 'running' : 'paused';
         }
@@ -125,7 +121,6 @@ class Blade extends Entity {
     this.position_y = py;
   }
 
-  /// TODO
   void setPosition(double newX, double newY){
     this.position_x = newX;
     this.position_y = newY;

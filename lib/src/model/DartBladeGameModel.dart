@@ -7,10 +7,13 @@ class DartBladeGameModel{
   int _currentLevel = -1;
   String _levelSecret;
   int gameoverTrigger = -1;
+
+  /// Das Spieler-Objekt
   Blade _player;
 
   Level _level;
 
+  /// Alle Level-Secrets gespeichert in einer Map zur späteren Abfrage
   Map levelSecrets = {
     0: "apfel893",
     1: "birne726",
@@ -24,6 +27,7 @@ class DartBladeGameModel{
     9: "radieschen625",
   };
 
+  /// Das Controller-Objekt
   DartbladeGameController _controller;
 
   /// Konstruktor des [DartBladeGameModel]
@@ -93,5 +97,4 @@ class DartBladeGameModel{
       return -1;
     }
   }
-
 }

@@ -10,17 +10,27 @@ class DartbladeGameController{
   DartBladeGameModel _model;
   DartBladeGameView _view;
 
+  /// Der Spieler
   Blade _player;
+
+  /// Der Spin des Kreisels in rpm
   int spinCount = 0;
+
+  /// Timer zum initialisieren des Spins
   Timer initSpinTimer;
   bool isInitSpinTimerActive = false;
+
+  /// Der Timer für den Spieler
+  /// Dieser ruft jeden Timer-Intervall die update-Funktion des Spielers auf
   Timer playerTimer;
   bool isPlayerTimerActive = false;
 
+  /// Variable, welches das aktuelle Level mitzählt
   int _currentLevel = 0;
   var _level;
   int _lastLevel = 9;
 
+  /// Secret, welches im Hauptmenü eingegeben werden kann
   String playerInputSecret = "";
 
   /// Konstruktor für den [DartbladeGameController] - Es wird sowohl eine [_view]-Instanz,
@@ -72,18 +82,23 @@ class DartbladeGameController{
 
     });
 
+    /// Listener für den Button, wo man die Game-Secrets eingeben kann
     _view.enterSecretButton.onClick.listen((e){
       _view.showEnterSecretField();
       _view.secretEntered.onClick.listen((ev) => handleSecret());
 
     });
 
+    /// Listener um das Anleitungs-Feld im Hauptmenü anzuzeigen
     _view.instructions.onClick.listen((e){
       _view.showInstructiontext();
       _view.instructionsText.onClick.listen((e) => _view.hideInstructionText());
     });
 
   }
+
+  /// Sollte ein Secret eingegeben werden, so wird über getLevelNumberFromLevelSecret(secretValue)
+  /// das dem Secret entsprechende Level geladen.
   void handleSecret(){
     String  secretValue = ((document.querySelector('#secretField') as TextInputElement).value).toString();
     int levelNumberFromSecret = _model.getLevelNumberFromLevelSecret(secretValue);
@@ -117,6 +132,7 @@ class DartbladeGameController{
 
   }
 
+  /// Setzt den Spieler zurück, beendet alle Timer und erstellt das aktuelle Level
   void buildCurrentLevel() {
 
     /// Die Position des Players auf den Center des Viewports legen.
@@ -357,26 +373,4 @@ class DartbladeGameController{
         playerTimer.cancel();
     }
   }
-
-  /*
-  // Starte Spiel entweder mit Level 0 oder einem dem levelSecret entsprechendem Level!
-  void startGame([String levelSecret, int levelNumber]) {
-
-   // Starte bei Level 0
-    // TODO: Umstrukturieren
-    if (levelSecret == null && levelNumber == null) {
-      Level level = new Level(_currentLevel);
-    } else if (levelNumber > 0) {
-      Level level = new Level(_currentLevel);
-    } else if (levelSecret != null) {
-      _currentLevel = getLevelNumberFromLevelSecret(levelSecret);
-      if (_currentLevel == -1) {
-       //Steuerung für die View, wenn levelsecret gefunden, aber falsch
-      } else {
-        //erstelle Level vom levelSecret
-        Level level = new Level(_currentLevel);
-      }
-    }
-  }
-  */
 }

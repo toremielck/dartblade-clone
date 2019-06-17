@@ -33,24 +33,26 @@ class LoadingLevel{
 
     try {
 
-      // Wenn es auf dem mylab-Server laufen soll muss der Pfad der JSON-Levels anders
-      // angegeben werden:
+      /// Wenn das Spiel auf dem mylab-Server laufen soll muss der Pfad der JSON-Levels anders
+      /// angegeben werden:
 
-   //  String jsonCode = await HttpRequest.getString("/levels/level_${levelNum}.json");
+      /// String jsonCode = await HttpRequest.getString("/levels/level_${levelNum}.json");
      String jsonCode = await HttpRequest.getString("/ss2019/team-5e/levels/level_${levelNum}.json");
 
+     /// Dekodiere den aus der JSON-Datei erhaltenen String in die Model-Variablen.
       var levelData = jsonDecode(jsonCode);
 
       _levelNumber = levelData["levelNumber"];
       _size_x = levelData["size_x"];
       _size_y = levelData["size_y"];
       _levelStructur = levelData["levelStructur"];
-    }catch (e) {
+    } catch (e) {
+
+      /// Fange einen Fehler ab, sollte die Level-JSON-Datei nicht richtig
+      /// geladen werden können.
       print("getLevelDataFromJSON Error: ${e} ");
       return false;
     }
     return true;
-
-
   }
 }

@@ -149,6 +149,8 @@ class DartBladeGameView {
     }
   }
 
+  /// DEBUG-Funktion für die Positions-Werte des Levels
+  /// wird im fertigen Spiel nicht mehr angezeigt.
   void moveLevelDebug( [direction, collisionField]) {
 
     // Falls sich das Level nicht bewegt setze direction auf "none"
@@ -192,13 +194,17 @@ class DartBladeGameView {
     displayLevelFailed.style.display = "none";
   }
 
+  /// Zeige das Eingabefeld, in welchem man ein vorher erspieltes Level-Secret eingeben kann.
   void showEnterSecretField(){
     enterSecretField.style.display ="block";
   }
+
+  /// Verstecke das Feld zum Eingeben eines Level-Secrets wieder.
   void hideEnterSecretField(){
     enterSecretField.style.display = "none";
   }
 
+  /// Zeigt das Overlay mit der Anleitung für das Spiel an.
   void showInstructiontext(){
     instructionsText.innerHtml =
     "Instructions <hr>"
@@ -211,27 +217,34 @@ class DartBladeGameView {
     ;
     instructionsText.style.display ="block";
   }
+
+  /// Versteckt das Anleitungs-Overlay wieder.
   void hideInstructionText(){
     instructionsText.style.display = "none";
   }
 
+  /// Zeige ein Overlay an, dass ein falsches Level-Secret eingegeben wurde.
   void showWrongSecretMessage(){
     wrongSecret.innerHtml = "Wrong Secret: try again";
     wrongSecret.style.display = "block";
   }
+
+  /// Verstecke das Overlay wieder, welches anzeigt, dass ein falsches Level-Secret
+  /// eingegeben wurde.
   void hideWrongSecretMessage(){
     wrongSecret.style.display = "none";
   }
+
+  /// Zeige ein Overlay an, dass das Spiel gewonnen wurde.
   void showGameWon(){
     displayGameWon.innerHtml ="You beat the Game | reload page to play again";
     displayGameWon.style.display = "block";
 
   }
 
+  /// Verstecke das Overlay wieder, welches anzeigt, dass das Spiel gewonnen wurde.
   void hideGameWon(){
     displayGameWon.style.display = "none";
 
   }
-
-
 }

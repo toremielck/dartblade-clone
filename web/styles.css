@@ -24,6 +24,7 @@ html, body {
 #secretInput{
     display: none;
 }
+
 #secretEntered{
     padding: 5px 20px 5px 20px;
     margin: auto;
@@ -35,6 +36,7 @@ html, body {
     font-family: 'Press Start 2P', sans-serif;
 
 }
+
 #secretField{
     padding: 5px 20px 5px 20px;
     margin: auto;
@@ -45,6 +47,7 @@ html, body {
     border-radius: 5px;
     font-family: 'Press Start 2P', sans-serif;
 }
+
 #wrongSecret{
     position: relative;
     z-index: 100;
@@ -103,7 +106,8 @@ html, body {
     z-index: 1;
     display: block;
 }
-#getSpin{
+
+#getSpin {
     position: relative;
     top: 40%;
     margin: auto;
@@ -115,7 +119,8 @@ html, body {
     z-index: 1;
     display: block;
 }
-#startLevel{
+
+#startLevel {
     position: relative;
     top: 40%;
     margin: auto;
@@ -127,7 +132,8 @@ html, body {
     z-index: 1;
     display: none;
 }
-#displayGameWon{
+
+#displayGameWon {
     position: relative;
     top: 40%;
     margin: auto;
