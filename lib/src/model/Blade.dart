@@ -1,16 +1,27 @@
 part of modelLib;
 
 class Blade extends Entity {
+
+  /// Die Position des Spielers
   double position_x;
   double position_y;
+
+  /// Der Bewegungsvektor des Spielers
   double direction_x = 0.0;
   double direction_y = 0.0;
 
   double radius;
+
+  /// Der Spin des Spielers
   int spin;
 
+  /// Die Instanz der View
   DartBladeGameView view;
+
+  /// Die Instanz des Models
   DartBladeGameModel _model;
+
+  /// Die Instanz des Levels
   Level _level;
 
   /// Konstruktor der [Blade] Klasse
