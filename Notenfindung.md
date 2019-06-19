@@ -1,6 +1,6 @@
 # Notenfindung
 
-- Teammitglieder wurden leicht unterschiedlich bewertet.
+- Teammitglieder wurden leicht unterschiedlich bewertet (100 zu 50 Commits, unterschiedlich intensive Entwicklungsbeiträge).
 - Die Sprintpräsentationen nahmen zum Ende hin deutlich in der Qualtät ab.
 - Insgesamt entstand der Eindruck, dass das gewählte Spielkonzept letztlich technisch nicht wirklich beherrscht wurde (obwohl es in vergleichender Betrachtung der Komplexität anderer Teams entsprach).
 - Die Steuerung erscheint weder auf dem Smartphone noch auf dem Desktop intuitiv.
